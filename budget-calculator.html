@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Budget calculator form for estimating event-related costs such as tickets, transportation, and materials."
+    />
+    <meta
+      name="keywords"
+      content="EduConnect, budget calculator, event costs, transportation, materials, estimate"
+    />
+    <meta name="author" content="Your Full Name" />
+    <title>Budget Calculator - EduConnect</title>
+  </head>
+
+  <body>
+    <!-- ========== HEADER SECTION ========== -->
+    <header>
+      <div>
+        <a href="index.html" title="Go to EduConnect Home">
+          <img src="assets/logo.png" alt="EduConnect logo" width="120" height="120" />
+        </a>
+        <h1>EduConnect</h1>
+      </div>
+
+      <nav id="main-navigation" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html" title="Home">Home</a></li>
+          <li><a href="about.html" title="About EduConnect">About Us</a></li>
+          <li><a href="course-catalog.html" title="Browse course catalog">Course Catalog</a></li>
+          <li><a href="student-dashboard.html" title="Open student dashboard">Student Dashboard</a></li>
+          <li><a href="registration.html" title="Register for an event">Registration</a></li>
+          <li><a href="contact.html" title="Contact us">Contact Me</a></li>
+          <li>
+            <a
+              href="https://www.exampleuniversity.edu"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Visit University Website"
+              >University Name</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ========== END HEADER ========= -->
+
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href="index.html" title="Home">Home</a> &gt; <span>Budget Calculator</span>
+    </nav>
+
+    <!-- ========== MAIN SECTION ========== -->
+    <main>
+      <header>
+        <h2>Budget Calculator</h2>
+        <p>
+          Fill the fields and calculate your total manually (no JavaScript in this phase).
+          You can also save/print this page.
+        </p>
+      </header>
+
+      <section aria-label="Budget form">
+        <form action="#" method="post">
+          <fieldset>
+            <legend>Event Costs</legend>
+
+            <p>
+              <label for="ticketCost">Ticket / Entry Cost</label><br />
+              <input
+                type="number"
+                id="ticketCost"
+                name="ticketCost"
+                min="0"
+                step="1"
+                placeholder="0"
+                title="Ticket cost"
+              />
+            </p>
+
+            <p>
+              <label for="transportCost">Transportation Cost</label><br />
+              <input
+                type="number"
+                id="transportCost"
+                name="transportCost"
+                min="0"
+                step="1"
+                placeholder="0"
+                title="Transportation cost"
+              />
+            </p>
+
+            <p>
+              <label for="materialsCost">Materials / Supplies</label><br />
+              <input
+                type="number"
+                id="materialsCost"
+                name="materialsCost"
+                min="0"
+                step="1"
+                placeholder="0"
+                title="Materials cost"
+              />
+            </p>
+
+            <p>
+              <label for="foodCost">Food / Drinks</label><br />
+              <input
+                type="number"
+                id="foodCost"
+                name="foodCost"
+                min="0"
+                step="1"
+                placeholder="0"
+                title="Food cost"
+              />
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Calculation Guide</legend>
+
+            <!-- Ordered list -->
+            <ol>
+              <li>Write each cost you expect above.</li>
+              <li>Add them together to get your total estimate.</li>
+              <li>Compare your total with your available budget.</li>
+            </ol>
+
+            <!-- Definition list -->
+            <dl>
+              <dt>Total Estimate</dt>
+              <dd>The sum of ticket, transportation, materials, and food costs.</dd>
+              <dt>Buffer</dt>
+              <dd>Extra amount you keep for unexpected expenses (recommended).</dd>
+            </dl>
+          </fieldset>
+
+          <p>
+            <button type="submit" title="Submit (placeholder)">Submit</button>
+            <button type="reset" title="Clear fields">Clear</button>
+          </p>
+        </form>
+      </section>
+
+      <aside aria-label="Budget tip">
+        <h3>Tip</h3>
+        <ul>
+          <li>Consider adding a small buffer (e.g., 10%).</li>
+          <li>If the event is far, plan transport early.</li>
+        </ul>
+      </aside>
+    </main>
+    <!-- ========== END MAIN SECTION ========== -->
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <footer>
+      <div class="footer-content">
+        <section aria-label="Footer links">
+          <h4>Links</h4>
+          <ul>
+            <li><a href="about.html" title="About EduConnect">About Us</a></li>
+            <li><a href="contact.html" title="Contact page">Contact</a></li>
+            <li><a href="privacy.html" title="Privacy policy placeholder">Privacy Policy</a></li>
+            <li><a href="terms.html" title="Terms of service placeholder">Terms of Service</a></li>
+          </ul>
+        </section>
+
+        <section aria-label="Footer contact">
+          <h4>Contact</h4>
+          <address>
+            Email:
+            <a href="mailto:contact@educonnect.example" title="Send us an email"
+              >contact@educonnect.example</a
+            >
+          </address>
+        </section>
+
+        <section aria-label="Footer social media">
+          <h4>Social</h4>
+          <ul>
+            <li>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" title="LinkedIn"
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <a href="https://www.facebook.com" target="_blank" rel="noopener" title="Facebook"
+                >Facebook</a
+              >
+            </li>
+            <li>
+              <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter"
+                >Twitter</a
+              >
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <section aria-label="Footer copyright">
+        <p>(c) 2025 EduConnect. All rights reserved.</p>
+        <p>
+          Last Updated:
+          <time datetime="2025-12-29" title="Last updated date">December 29, 2025</time>
+        </p>
+      </section>
+    </footer>
+    <!-- ========== END FOOTER ========= -->
+  </body>
+</html>
