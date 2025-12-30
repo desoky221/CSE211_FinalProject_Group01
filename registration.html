@@ -61,43 +61,53 @@
       </header>
 
       <section class="registration-form" aria-label="Registration form">
+        <p style="background-color: #fef3c7; padding: 1rem; border-radius: 6px; border-left: 4px solid #f59e0b; margin-bottom: 1.5rem;">
+          <strong>Note:</strong> Fields marked with <span style="color: red;">*</span> are required.
+        </p>
         <!-- Redirecting to thank-you.html as required -->
         <form action="thank-you.html" method="get">
           <fieldset>
             <legend>Personal Information</legend>
 
             <p>
-              <label for="fullName">Full Name</label><br />
+              <label for="fullName">Full Name <span style="color: red;">*</span></label><br />
               <input
                 type="text"
                 id="fullName"
                 name="fullName"
                 required
+                minlength="3"
+                maxlength="50"
+                pattern="[A-Za-z\s]+"
                 placeholder="e.g., Ahmed Ali"
-                title="Enter your full name"
+                title="Enter your full name (letters and spaces only, 3-50 characters)"
               />
             </p>
 
             <p>
-              <label for="email">Email</label><br />
+              <label for="email">Email <span style="color: red;">*</span></label><br />
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 placeholder="name@example.com"
-                title="Enter your email address"
+                title="Enter a valid email address (e.g., name@example.com)"
               />
             </p>
 
             <p>
-              <label for="phone">Phone</label><br />
+              <label for="phone">Phone Number (11 digits) <span style="color: red;">*</span></label><br />
               <input
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder="+20..."
-                title="Enter your phone number"
+                required
+                pattern="[0-9]{11}"
+                placeholder="01234567890"
+                maxlength="11"
+                title="Enter exactly 11 digits (e.g., 01234567890)"
               />
             </p>
           </fieldset>
@@ -106,9 +116,9 @@
             <legend>Event Selection</legend>
 
             <p>
-              <label for="eventName">Choose Event</label><br />
-              <select id="eventName" name="eventName" required title="Select an event">
-                <option value="">Select one...</option>
+              <label for="eventName">Choose Event <span style="color: red;">*</span></label><br />
+              <select id="eventName" name="eventName" required title="You must select an event">
+                <option value="">-- Select one --</option>
                 <option value="web-design-sprint">Web Design Sprint</option>
                 <option value="career-prep-seminar">Career Prep Seminar</option>
                 <option value="research-poster-day">Research Poster Day</option>
@@ -117,8 +127,9 @@
             </p>
 
             <p>
-              <label for="attendanceMode">Attendance Mode</label><br />
-              <select id="attendanceMode" name="attendanceMode" title="Choose attendance mode">
+              <label for="attendanceMode">Attendance Mode <span style="color: red;">*</span></label><br />
+              <select id="attendanceMode" name="attendanceMode" required title="Choose how you will attend">
+                <option value="">-- Select mode --</option>
                 <option value="in-person">In-person</option>
                 <option value="online">Online</option>
               </select>
@@ -149,7 +160,7 @@
 
             <p>
               <input type="checkbox" id="agree" name="agree" required />
-              <label for="agree">I confirm my details are correct.</label>
+              <label for="agree">I confirm my details are correct. <span style="color: red;">*</span></label>
             </p>
 
             <p>
