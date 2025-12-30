@@ -1,136 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta
       name="description"
       content="Budget calculator form for estimating event-related costs such as tickets, transportation, and materials."
-    />
+    >
     <meta
       name="keywords"
       content="EduConnect, budget calculator, event costs, transportation, materials, estimate"
-    />
-    <meta name="author" content="Your Full Name" />
+    >
+    <meta name="author" content="Your Full Name">
     <title>Budget Calculator - EduConnect</title>
   </head>
 
-  <body>
+  <body id="budgetPage">
     <!-- ========== HEADER SECTION ========== -->
-    <header>
-      <div>
-        <a href="index.html" title="Go to EduConnect Home">
-          <img src="assets/logo.png" alt="EduConnect logo" width="120" height="120" />
+    <header id="siteHeader" class="headerBox">
+      <div id="brandSection" class="brandBox">
+        <a href="index.html" id="homeLink" class="logoLink" title="Go to EduConnect Home">
+          <img
+            src="assets/logo.png"
+            alt="EduConnect logo"
+            width="120"
+            height="120"
+            id="logoImage"
+            class="logoImg"
+          >
         </a>
-        <h1>EduConnect</h1>
+        <h1 id="siteTitle" class="titleText">EduConnect</h1>
       </div>
 
-      <nav id="main-navigation" role="navigation" aria-label="Primary">
-        <ul>
-          <li><a href="index.html" title="Home">Home</a></li>
-          <li><a href="about.html" title="About EduConnect">About Us</a></li>
-          <li><a href="course-catalog.html" title="Browse course catalog">Course Catalog</a></li>
-          <li><a href="student-dashboard.html" title="Open student dashboard">Student Dashboard</a></li>
-          <li><a href="registration.html" title="Register for an event">Registration</a></li>
-          <li><a href="contact.html" title="Contact us">Contact Me</a></li>
-          <li>
+      <!-- ========== MAIN NAVIGATION ========== -->
+      <nav id="mainNavigation" class="navBar" aria-label="Primary">
+        <ul id="navList" class="navListBox">
+          <li class="navItem"><a href="index.html" id="navHome" class="navLink" title="Home">Home</a></li>
+          <li class="navItem"><a href="about.html" id="navAbout" class="navLink" title="About EduConnect">About Us</a></li>
+          <li class="navItem"><a href="course-catalog.html" id="navCourses" class="navLink" title="Browse course catalog">Course Catalog</a></li>
+          <li class="navItem"><a href="student-dashboard.html" id="navDashboard" class="navLink" title="Open student dashboard">Student Dashboard</a></li>
+          <li class="navItem"><a href="registration.html" id="navRegister" class="navLink" title="Register for an event">Registration</a></li>
+          <li class="navItem"><a href="contact.html" id="navContact" class="navLink" title="Contact us">Contact Me</a></li>
+          <li class="navItem">
             <a
               href="https://www.exampleuniversity.edu"
+              id="navUniversity"
+              class="navLink"
               target="_blank"
               rel="noopener noreferrer"
               title="Visit University Website"
-              >University Name</a
-            >
+            >University Name</a>
           </li>
         </ul>
       </nav>
+      <!-- ========== END MAIN NAVIGATION ========== -->
     </header>
     <!-- ========== END HEADER ========= -->
 
-    <nav class="breadcrumb" aria-label="breadcrumb">
-      <a href="index.html" title="Home">Home</a> &gt; <span>Budget Calculator</span>
+    <!-- ========== BREADCRUMB ========== -->
+    <nav id="breadcrumbNav" class="breadcrumbBox" aria-label="breadcrumb">
+      <a href="index.html" id="breadcrumbHome" class="breadcrumbLink" title="Home">Home</a>
+      <span id="breadcrumbSeparator" class="breadcrumbSep">&gt;</span>
+      <span id="breadcrumbCurrent" class="breadcrumbCurrent">Budget Calculator</span>
     </nav>
+    <!-- ========== END BREADCRUMB ========== -->
 
     <!-- ========== MAIN SECTION ========== -->
-    <main>
-      <header>
-        <h2>Budget Calculator</h2>
-        <p>
+    <main id="mainContent" class="mainBox">
+      <header id="pageHeader" class="pageHeaderBox">
+        <h2 id="pageTitle" class="pageTitleText">Budget Calculator</h2>
+        <p id="pageIntro" class="paragraphText">
           Fill the fields and calculate your total manually (no JavaScript in this phase).
           You can also save/print this page.
         </p>
       </header>
 
-      <section aria-label="Budget form">
-        <form action="#" method="post">
-          <fieldset>
-            <legend>Event Costs</legend>
+      <section id="budgetSection" class="contentSection">
+        <h3 id="budgetSectionTitle" class="sectionTitle">Budget Form</h3>
 
-            <p>
-              <label for="ticketCost">Ticket / Entry Cost</label><br />
+        <form action="#" method="post" id="budgetForm" class="formBox">
+          <fieldset id="costFieldset" class="fieldsetBox">
+            <legend id="costLegend" class="legendText">Event Costs</legend>
+
+            <p class="formRow">
+              <label for="ticketCost" class="formLabel">Ticket / Entry Cost</label>
               <input
                 type="number"
                 id="ticketCost"
                 name="ticketCost"
+                class="formInput"
                 min="0"
                 step="1"
                 placeholder="0"
                 title="Ticket cost"
-              />
+              >
             </p>
 
-            <p>
-              <label for="transportCost">Transportation Cost</label><br />
+            <p class="formRow">
+              <label for="transportCost" class="formLabel">Transportation Cost</label>
               <input
                 type="number"
                 id="transportCost"
                 name="transportCost"
+                class="formInput"
                 min="0"
                 step="1"
                 placeholder="0"
                 title="Transportation cost"
-              />
+              >
             </p>
 
-            <p>
-              <label for="materialsCost">Materials / Supplies</label><br />
+            <p class="formRow">
+              <label for="materialsCost" class="formLabel">Materials / Supplies</label>
               <input
                 type="number"
                 id="materialsCost"
                 name="materialsCost"
+                class="formInput"
                 min="0"
                 step="1"
                 placeholder="0"
                 title="Materials cost"
-              />
+              >
             </p>
 
-            <p>
-              <label for="foodCost">Food / Drinks</label><br />
+            <p class="formRow">
+              <label for="foodCost" class="formLabel">Food / Drinks</label>
               <input
                 type="number"
                 id="foodCost"
                 name="foodCost"
+                class="formInput"
                 min="0"
                 step="1"
                 placeholder="0"
                 title="Food cost"
-              />
+              >
             </p>
           </fieldset>
 
-          <fieldset>
-            <legend>Calculation Guide</legend>
+          <fieldset id="guideFieldset" class="fieldsetBox">
+            <legend id="guideLegend" class="legendText">Calculation Guide</legend>
 
-            <!-- Ordered list -->
-            <ol>
+            <ol id="guideSteps" class="numberList">
               <li>Write each cost you expect above.</li>
               <li>Add them together to get your total estimate.</li>
               <li>Compare your total with your available budget.</li>
             </ol>
 
-            <!-- Definition list -->
-            <dl>
+            <dl id="guideDefinitions" class="definitionList">
               <dt>Total Estimate</dt>
               <dd>The sum of ticket, transportation, materials, and food costs.</dd>
               <dt>Buffer</dt>
@@ -138,16 +156,16 @@
             </dl>
           </fieldset>
 
-          <p>
-            <button type="submit" title="Submit (placeholder)">Submit</button>
-            <button type="reset" title="Clear fields">Clear</button>
+          <p id="formActions" class="buttonRow">
+            <button type="submit" id="submitBtn" class="actionBtn" title="Submit (placeholder)">Submit</button>
+            <button type="reset" id="clearBtn" class="actionBtn" title="Clear fields">Clear</button>
           </p>
         </form>
       </section>
 
-      <aside aria-label="Budget tip">
-        <h3>Tip</h3>
-        <ul>
+      <aside id="tipAside" class="asideBox" aria-label="Budget tip">
+        <h3 id="tipTitle" class="sectionTitle">Tip</h3>
+        <ul id="tipList" class="simpleList">
           <li>Consider adding a small buffer (e.g., 10%).</li>
           <li>If the event is far, plan transport early.</li>
         </ul>
@@ -156,55 +174,73 @@
     <!-- ========== END MAIN SECTION ========== -->
 
     <!-- ========== FOOTER SECTION ========== -->
-    <footer>
-      <div class="footer-content">
-        <section aria-label="Footer links">
-          <h4>Links</h4>
-          <ul>
-            <li><a href="about.html" title="About EduConnect">About Us</a></li>
-            <li><a href="contact.html" title="Contact page">Contact</a></li>
-            <li><a href="privacy.html" title="Privacy policy placeholder">Privacy Policy</a></li>
-            <li><a href="terms.html" title="Terms of service placeholder">Terms of Service</a></li>
+    <footer id="siteFooter" class="footerBox">
+      <div id="footerContent" class="footerContentBox">
+        <section id="footerLinksSection" class="footerSection">
+          <h4 id="footerLinksTitle" class="footerTitle">Links</h4>
+          <ul id="footerLinksList" class="footerList">
+            <li><a href="about.html" id="footerAbout" class="footerLink" title="About EduConnect">About Us</a></li>
+            <li><a href="contact.html" id="footerContact" class="footerLink" title="Contact page">Contact</a></li>
+            <li><a href="privacy.html" id="footerPrivacy" class="footerLink" title="Privacy policy placeholder">Privacy Policy</a></li>
+            <li><a href="terms.html" id="footerTerms" class="footerLink" title="Terms of service placeholder">Terms of Service</a></li>
           </ul>
         </section>
 
-        <section aria-label="Footer contact">
-          <h4>Contact</h4>
-          <address>
+        <section id="footerContactSection" class="footerSection">
+          <h4 id="footerContactTitle" class="footerTitle">Contact</h4>
+          <address id="footerAddress" class="addressBox">
             Email:
-            <a href="mailto:contact@educonnect.example" title="Send us an email"
-              >contact@educonnect.example</a
-            >
+            <a href="mailto:contact@educonnect.example" id="footerEmail" class="footerLink" title="Send us an email">
+              contact@educonnect.example
+            </a>
           </address>
         </section>
 
-        <section aria-label="Footer social media">
-          <h4>Social</h4>
-          <ul>
+        <section id="footerSocialSection" class="footerSection">
+          <h4 id="footerSocialTitle" class="footerTitle">Social</h4>
+          <ul id="footerSocialList" class="footerList">
             <li>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener" title="LinkedIn"
-                >LinkedIn</a
-              >
+              <a
+                href="https://www.linkedin.com"
+                id="socialLinkedIn"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+              >LinkedIn</a>
             </li>
             <li>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener" title="Facebook"
-                >Facebook</a
-              >
+              <a
+                href="https://www.facebook.com"
+                id="socialFacebook"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook"
+              >Facebook</a>
             </li>
             <li>
-              <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter"
-                >Twitter</a
-              >
+              <a
+                href="https://twitter.com"
+                id="socialTwitter"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Twitter"
+              >Twitter</a>
             </li>
           </ul>
         </section>
       </div>
 
-      <section aria-label="Footer copyright">
-        <p>(c) 2025 EduConnect. All rights reserved.</p>
-        <p>
+      <section id="footerInfo" class="footerInfoBox">
+        <h4 id="footerInfoTitle" class="footerTitle">Footer Information</h4>
+        <p id="copyrightText" class="footerText">(c) 2025 EduConnect. All rights reserved.</p>
+        <p id="updatedText" class="footerText">
           Last Updated:
-          <time datetime="2025-12-29" title="Last updated date">December 29, 2025</time>
+          <time datetime="2025-12-29" id="lastUpdated" class="timeText" title="Last updated date">
+            December 29, 2025
+          </time>
         </p>
       </section>
     </footer>
