@@ -1,0 +1,187 @@
+/* ==========================================
+   TERMS OF SERVICE PAGE SPECIFIC STYLES
+   ==========================================
+   Only unique styles for terms.html
+   Common styles are in common.css
+   ========================================== */
+
+/* Terms Page Specific Styles */
+#termsPage main {
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+/* Section Styling */
+#termsPage section {
+    background-color: #ffffff;
+    border-left: 4px solid #764ba2;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#termsPage section h2 {
+    color: #764ba2;
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+#termsPage section h3 {
+    color: #555;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* List Styling */
+#termsPage ul,
+#termsPage ol {
+    line-height: 1.8;
+    color: #555;
+    padding-left: 1.5rem;
+}
+
+#termsPage li {
+    margin-bottom: 0.75rem;
+}
+
+#termsPage li strong {
+    color: #333;
+}
+
+/* Nested Lists */
+#termsPage ol ol {
+    list-style-type: lower-alpha;
+    margin-top: 0.5rem;
+}
+
+/* Important Notice Box */
+#termsPage .notice {
+    background-color: #f8d7da;
+    border-left: 4px solid #dc3545;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 6px;
+}
+
+#termsPage .notice h3 {
+    color: #721c24;
+    margin-top: 0;
+}
+
+#termsPage .notice p {
+    color: #721c24;
+    margin-bottom: 0;
+}
+
+/* Last Updated Date */
+#termsPage .last-updated {
+    background-color: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-style: italic;
+    color: #0056b3;
+}
+
+/* Agreement Box */
+#termsPage .agreement-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+#termsPage .agreement-box h3 {
+    color: white;
+    margin-top: 0;
+}
+
+#termsPage .agreement-box p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.1rem;
+}
+
+/* Contact Information Highlight */
+#termsPage address {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-style: normal;
+    line-height: 1.8;
+}
+
+#termsPage address strong {
+    display: block;
+    color: #764ba2;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+#termsPage p {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+/* Definition Terms */
+#termsPage dl {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+#termsPage dt {
+    font-weight: bold;
+    color: #764ba2;
+    margin-top: 1rem;
+}
+
+#termsPage dt:first-child {
+    margin-top: 0;
+}
+
+#termsPage dd {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Highlight Important Terms */
+#termsPage .important-term {
+    background-color: #fffbcc;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #termsPage main {
+        margin: 1rem auto;
+    }
+
+    #termsPage section {
+        padding: 1.5rem;
+    }
+
+    #termsPage section h2 {
+        font-size: 1.5rem;
+    }
+
+    #termsPage .agreement-box {
+        padding: 1.5rem;
+    }
+}
+

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure your spot at our upcoming campus workshops. Register now for EventsX sessions through EduConnect.">
+    <meta name="keywords" content="Registration, EventsX, EduConnect, Workshop Signup, Seminar Registration">
+    <meta name="author" content="Your Full Name">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/registration.css">
+    <title>Registration - EduConnect</title>
+</head>
+
+<body id="registrationPage">
+    <header id="siteHeader">
+        <div id="brandSection">
+            <a href="../index.html">
+                <img src="../images/logo_image.jpeg" alt="EventsX Logo" width="150" height="80">
+            </a>
+            <h1>EventsX</h1>
+        </div>
+
+        <nav id="main-navigation" role="navigation" aria-label="Primary">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="events.html">Course Catalog</a></li>
+                <li><a href="student-dashboard.html">Student Dashboard</a></li>
+                <li><a href="registration.html">Registration</a></li>
+                <li><a href="contact.html">Contact Me</a></li>
+                <li>
+                    <a href="https://www.gu.edu.eg/" target="_blank" rel="noopener noreferrer">Galala University</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="../index.html">Home</a> &gt; Registration
+    </nav>
+
+    <main id="mainContent">
+        <header>
+            <h2>Event Registration</h2>
+            <p>Complete the form below to participate in our dynamic workshops.</p>
+        </header>
+
+        <section id="formSection">
+            <form action="thank-you.html" id="registrationForm" method="GET">
+                
+                <fieldset>
+                    <legend>Personal Details</legend>
+                    <p>
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    </p>
+                    <p>
+                        <label for="email">University Email:</label>
+                        <input type="email" id="email" name="email" placeholder="name@educonnect.com" required>
+                    </p>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Event Selection</legend>
+                    <p>
+                        <label for="eventName">Select Event:</label>
+                        <select id="eventName" name="eventName" required>
+                            <option value="">-- Please choose an event --</option>
+                            <option value="web-sprint">Web Design Sprint</option>
+                            <option value="career-prep">Career Prep Seminar</option>
+                            <option value="networking">Networking Night</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="attendance">Attendance Mode:</label>
+                        <select id="attendance" name="attendance">
+                            <option value="in-person">In-Person</option>
+                            <option value="online">Online</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="comments">Special Requirements:</label><br>
+                        <textarea id="comments" name="comments" rows="4" cols="40"></textarea>
+                    </p>
+                </fieldset>
+
+                <p>
+                    <input type="checkbox" id="confirm" name="confirm" required>
+                    <label for="confirm">I confirm that the information provided is accurate.</label>
+                </p>
+
+                <div class="form-actions">
+                    <button type="submit">Submit Registration</button>
+                    <button type="reset">Clear Form</button>
+                </div>
+            </form>
+        </section>
+    </main>
+      <!-- ========== END MAIN SECTION ========== -->
+
+      <!-- ========== FOOTER SECTION ========== -->
+      <footer id="siteFooter" class="footer">
+        <div id="footerContent" class="footerContent">
+          <section id="footerLinksSection" class="footerSection">
+            <h4 id="footerLinksTitle" class="footerTitle">Links</h4>
+            <ul id="footerLinksList" class="footerList">
+              <li><a href="about.html" id="footerAbout" class="footerLink" title="About EduConnect">About Us</a></li>
+              <li><a href="contact.html" id="footerContact" class="footerLink" title="Contact page">Contact</a></li>
+              <li><a href="privacy.html" id="footerPrivacy" class="footerLink" title="Privacy policy placeholder">Privacy Policy</a></li>
+              <li><a href="terms.html" id="footerTerms" class="footerLink" title="Terms of service placeholder">Terms of Service</a></li>
+            </ul>
+          </section>
+
+          <section id="footerContactSection" class="footerSection">
+            <h4 id="footerContactTitle" class="footerTitle">Contact</h4>
+            <address id="footerAddress" class="address">
+              Email:
+              <a
+                href="mailto:contact@educonnect.example"
+                id="footerEmail"
+                class="footerLink"
+                title="Send us an email"
+              >contact@educonnect.example</a>
+            </address>
+          </section>
+
+          <section id="footerSocialSection" class="footerSection">
+            <h4 id="footerSocialTitle" class="footerTitle">Social</h4>
+            <ul id="footerSocialList" class="footerList">
+              <li>
+                <a
+                  href="https://www.linkedin.com"
+                  id="footerLinkedIn"
+                  class="footerLink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="LinkedIn"
+                >LinkedIn</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  id="footerFacebook"
+                  class="footerLink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Facebook"
+                >Facebook</a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com"
+                  id="footerTwitter"
+                  class="footerLink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Twitter"
+                >Twitter</a>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <section id="footerInfo" class="footerInfo">
+          <p id="copyrightText" class="footerText">&copy; 2025 EduConnect. All rights reserved.</p>
+          <p id="updatedText" class="footerText">
+            Last Updated:
+            <time datetime="2025-12-29" id="lastUpdated" class="timeText" title="Last updated date">
+              December 29, 2025
+            </time>
+          </p>
+        </section>
+      </footer>
+      <!-- ========== END FOOTER ========= -->
+    </body>
+  </html>

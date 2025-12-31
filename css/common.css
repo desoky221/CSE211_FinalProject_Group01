@@ -382,59 +382,82 @@ address {
 
 footer {
   background-color: var(--footer-bg);
-  color: #cbd5e1; /* Light gray text for dark bg */
-  padding: 4rem 2rem 2rem 2rem;
+  color: #cbd5e1;
+  padding: 3rem 2rem 2rem 2rem;
   margin-top: 5rem;
 }
 
 .footer-content {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2.5rem;               /* was 40px */
-  max-width: 1200px;         /* px OK */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
   margin: 0 auto;
-  border-bottom: 1px solid rgba(255,255,255,0.1); /* px OK */
-  padding-bottom: 2rem;
+  padding: 0 1rem 2rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 
 .footer-content section {
-  flex: 1;
-  min-width: 200px; 
+  min-width: 200px;
 }
 
 .footer-content h4 {
   color: var(--white);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
   letter-spacing: 1px;
 }
 
 .footer-content ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-content li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .footer-content a {
   color: #cbd5e1;
   text-decoration: none;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  display: inline-block;
+  font-size: 0.95rem;
 }
 
 .footer-content a:hover {
-  color: var(--secondary);
-  padding-left: 0.3125rem;
+  color: var(--white);
+  transform: translateX(5px);
+}
+
+.footer-content address {
+  font-style: normal;
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.footer-content address a {
+  color: #cbd5e1;
+}
+
+.footer-content address a:hover {
+  color: var(--white);
 }
 
 .footer-copyright {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.85rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.footer-copyright p {
+  margin: 0.5rem 0;
 }
 
 /* --- 10. Responsive Design --- */
@@ -461,8 +484,12 @@ footer {
   }
 
   .footer-content {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  
+  footer {
+    padding: 2rem 1rem 1.5rem 1rem;
   }
 
   fieldset {
