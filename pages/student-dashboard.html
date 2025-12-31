@@ -12,49 +12,56 @@ my github: https://github.com/desoky221/EDUconnect
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Student Dashboard - Track your learning progress, deadlines, and achievements.">
+    <meta name="keywords" content="Student Dashboard, EduConnect, Learning Progress, Courses, Deadlines, Statistics">
     <meta name="author" content="youssef ahmed/223101109 - abdallah mahdy/223104683">
-
+    <link rel="stylesheet" href="../css/style.css">
     <title>Student Dashboard - EduConnect</title>
 </head>
-<body style="font-family: Arial, Helvetica, sans-serif;">
+<body>
 
     <!-- ========== HEADER SECTION ========== -->
-    <header>
-        <img src="../images/logo.jpg" alt="EduConnect Logo" width="200" height="100">
-        <h1>EduConnect</h1>
+    <header id="siteHeader" class="header">
+        <div id="brandSection" class="brandSection">
+            <a href="../index.html" id="homeLink" class="logoLink" title="Go to EduConnect Home">
+                <img src="../images/logo_image.jpeg" alt="EduConnect Logo" width="200" height="100" id="logoImage" class="logoImg">
+            </a>
+            <h1 id="siteTitle" class="titleText">EduConnect</h1>
+        </div>
 
-        <nav id="main-navigation" aria-label="Main navigation">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="course-catalog.html">Course Catalog</a></li>
-                <li><a href="student-dashboard.html">Student Dashboard</a></li>
-                <li><a href="registration.html">Registration</a></li>
-                <li><a href="contact.html">Contact Me</a></li>
-                <li><a href="https://www.gu.edu.eg/" target="_blank" rel="noopener noreferrer">University Site</a></li>
+        <nav id="main-navigation" class="navBar" aria-label="Main navigation">
+            <ul id="navList" class="navList">
+                <li class="navItem"><a href="../index.html" id="navHome" class="navLink" title="Home">Home</a></li>
+                <li class="navItem"><a href="about.html" id="navAbout" class="navLink" title="About EduConnect">About Us</a></li>
+                <li class="navItem"><a href="events.html" id="navCourses" class="navLink" title="Browse course catalog">Course Catalog</a></li>
+                <li class="navItem"><a href="student-dashboard.html" id="navDashboard" class="navLink" title="Student dashboard">Student Dashboard</a></li>
+                <li class="navItem"><a href="registration.html" id="navRegister" class="navLink" title="Register for an event">Registration</a></li>
+                <li class="navItem"><a href="contact.html" id="navContact" class="navLink" title="Contact us">Contact Me</a></li>
+                <li class="navItem"><a href="https://www.gu.edu.eg/" id="navUniversity" class="navLink" target="_blank" rel="noopener noreferrer" title="Visit University Website">Galala University</a></li>
             </ul>
         </nav>
     </header>
     <!-- ========== END HEADER ========== -->
 
     <!-- ========== BREADCRUMB SECTION ========== -->
-    <nav aria-label="breadcrumb">
-        <a href="../index.html">Home</a> &gt; Dashboard
+    <nav id="breadcrumbNav" class="breadcrumb" aria-label="breadcrumb">
+        <a href="../index.html" id="breadcrumbHome" class="breadcrumbLink" title="Home">Home</a>
+        <span id="breadcrumbSeparator" class="breadcrumbSep">&gt;</span>
+        <span id="breadcrumbCurrent" class="breadcrumbCurrent">Dashboard</span>
     </nav>
     <!-- ========== END BREADCRUMB ========== -->
 
     <!-- ========== MAIN CONTENT SECTION ========== -->
-    <main>
+    <main id="mainContent" class="main">
 
-        <header>
-            <h2>Welcome back, student</h2>
+        <header id="pageHeader" class="pageHeader">
+            <h2 id="pageTitle" class="pageTitleText">Welcome back, student</h2>
 
-            <figure>
-                <img src="../images/profile/person.jpg" alt="Profile photo of Ahmed" width="100">
-                <figcaption>Student Profile</figcaption>
+            <figure id="profileFigure" class="profileSection">
+                <img src="../images/logo_image.jpeg" alt="Profile photo of Student" width="100" id="profileImage">
+                <figcaption id="profileCaption">Student Profile</figcaption>
             </figure>
 
-            <dl>
+            <dl id="quickStats" class="statsOverview">
                 <dt>Total Courses:</dt> <dd>4</dd>
                 <dt>Completed:</dt> <dd>1</dd>
                 <dt>In Progress:</dt> <dd>3</dd>
@@ -73,35 +80,35 @@ my github: https://github.com/desoky221/EDUconnect
 
                     <article>
                         <figure>
-                            <img src="../images/courses/webdev.jpg" alt="Web Development Thumbnail" width="150">
+                            <img src="../images/study1.jpeg" alt="Web Development Thumbnail" width="150">
                         </figure>
                         <h3>Web Development Fundamentals</h3>
                         <p><strong>Instructor:</strong> Dr. Samy Ghoniemy</p>
                         <p>Progress: 45% Completed</p>
                         <p>Last Accessed: <time datetime="2025-11-27">November 27, 2025</time></p>
-                        <p><a href="course-detail.html">Continue Learning</a></p>
+                        <p><a href="events.html">Continue Learning</a></p>
                     </article>
 
                     <article>
                         <figure>
-                            <img src="../images/courses/datascince.jpg" alt="Data Science Thumbnail" width="150">
+                            <img src="../images/study2.jpg" alt="Data Science Thumbnail" width="150">
                         </figure>
                         <h3>Python for Data Science</h3>
                         <p><strong>Instructor:</strong> Dr. shakir</p>
                         <p>Progress: 12% Completed</p>
                         <p>Last Accessed: <time datetime="2025-11-20">November 20, 2025</time></p>
-                        <p><a href="course-detail.html">Continue Learning</a></p>
+                        <p><a href="events.html">Continue Learning</a></p>
                     </article>
 
                     <article>
                         <figure>
-                            <img src="../images/courses/webdesign.jpg" alt="Web Design Thumbnail" width="150">
+                            <img src="../images/event-2.jpg" alt="Web Design Thumbnail" width="150">
                         </figure>
                         <h3>UI/UX Design Masterclass</h3>
                         <p><strong>Instructor:</strong> Dr. Samy Ghoniemy</p>
                         <p>Progress: 88% Completed</p>
                         <p>Last Accessed: <time datetime="2025-11-25">November 25, 2025</time></p>
-                        <p><a href="course-detail.html">Continue Learning</a></p>
+                        <p><a href="events.html">Continue Learning</a></p>
                     </article>
                 </section>
 
@@ -174,54 +181,54 @@ my github: https://github.com/desoky221/EDUconnect
                     </article>
                 </section>
 
-            </div> <aside class="sidebar-column">
+            </div> <aside id="dashboardSidebar" class="sidebar-column">
 <hr>
-                <section>
+                <section id="recommendedSection">
                     <h3>Recommended for You</h3>
                     <ul>
-                        <li><a href="course-detail.html">Advanced JavaScript</a></li>
-                        <li><a href="course-detail.html">React Native</a></li>
+                        <li><a href="events.html" title="Advanced JavaScript course">Advanced JavaScript</a></li>
+                        <li><a href="events.html" title="React Native course">React Native</a></li>
                     </ul>
                 </section>
 
-                <section>
+                <section id="badgesSection">
                     <h3>My Badges</h3>
-                    <ul>
+                    <ul id="badgesList">
                         <li>
-                            <img src="../images/early.webp" alt="Badge Icon" width="40">
+                            <img src="../images/event-1.webp" alt="Early Bird Badge Icon" width="40">
                             Early Bird
                         </li>
                         <li>
-                            <img src="../images/top.jpg" alt="Badge Icon" width="35">
+                            <img src="../images/event-2.jpg" alt="Top Scorer Badge Icon" width="35">
                             Top Scorer
                         </li>
                         <li>
-                            <img src="../images/consistant.jpg" alt="Badge Icon" width="40">
+                            <img src="../images/study1.jpeg" alt="Consistent Learner Badge Icon" width="40">
                             Consistent Learner
                         </li>
                     </ul>
                 </section>
 
-                <section>
+                <section id="weeklyGoalSection">
                     <h3>Weekly Goal</h3>
                     <p>3 / 5 Hours Completed</p>
-                    <meter min="0" max="5" value="3">3 out of 5</meter>
+                    <meter id="weeklyProgress" min="0" max="5" value="3">3 out of 5</meter>
                 </section>
 
-                <section>
+                <section id="calendarSection">
                     <h3>Calendar</h3>
-                    <table style="border: 1px solid black;">
+                    <table id="dashboardCalendar" class="calendar-table">
                         <caption>November 2025</caption>
 
                         <thead>
                             <tr>
-                                <th>Su</th>
-                                <th>Mo</th>
-                                <th>Tu</th>
-                                <th>We</th>
-                                <th>Th</th>
-                                <th>Fr</th>
-                                <th>Sa</th>
+                                <th scope="col">Su</th>
+                                <th scope="col">Mo</th>
+                                <th scope="col">Tu</th>
+                                <th scope="col">We</th>
+                                <th scope="col">Th</th>
+                                <th scope="col">Fr</th>
+                                <th scope="col">Sa</th>
                             </tr>
                         </thead>
 
@@ -244,17 +251,44 @@ my github: https://github.com/desoky221/EDUconnect
                                 <td>9</td>
                                 <td>10</td>
                             </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>13</td>
+                                <td>14</td>
+                                <td>15</td>
+                                <td>16</td>
+                                <td>17</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>19</td>
+                                <td>20</td>
+                                <td>21</td>
+                                <td>22</td>
+                                <td>23</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>26</td>
+                                <td>27</td>
+                                <td>28</td>
+                                <td>29</td>
+                                <td>30</td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </section>
 
 <hr>
-                <nav aria-label="Quick links">
+                <nav id="quickLinksNav" aria-label="Quick links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#">View Transcript</a></li>
-                        <li><a href="#">Payment History</a></li>
-                        <li><a href="contact.html">Student Support</a></li>
+                        <li><a href="events.html" title="View your transcript">View Transcript</a></li>
+                        <li><a href="events.html" title="View payment history">Payment History</a></li>
+                        <li><a href="contact.html" title="Contact student support">Student Support</a></li>
                     </ul>
                 </nav>
 
@@ -262,26 +296,53 @@ my github: https://github.com/desoky221/EDUconnect
     <!-- ========== END MAIN CONTENT ========== -->
 <hr>
     <!-- ========== FOOTER SECTION ========== -->
-    <footer>
-        <div class="footer-content">
-            <p>
-                <a href="about.html">About Us</a> |
-                <a href="contact.html">Contact</a> |
-                <a href="#">Privacy Policy</a> |
-                <a href="#">Terms of Service</a>
-            </p>
+    <footer id="siteFooter" class="footer">
+        <div id="footerContent" class="footerContent">
+            <section id="footerLinksSection" class="footerSection">
+                <h4 id="footerLinksTitle" class="footerTitle">Links</h4>
+                <ul id="footerLinksList" class="footerList">
+                    <li><a href="about.html" id="footerAbout" class="footerLink" title="About EduConnect">About Us</a></li>
+                    <li><a href="contact.html" id="footerContact" class="footerLink" title="Contact page">Contact</a></li>
+                    <li><a href="privacy.html" id="footerPrivacy" class="footerLink" title="Privacy policy">Privacy Policy</a></li>
+                    <li><a href="terms.html" id="footerTerms" class="footerLink" title="Terms of service">Terms of Service</a></li>
+                </ul>
+            </section>
 
-            <p>Email: <a href="mailto:info@gu.edu.eg">info@gu.edu.eg</a></p>
+            <section id="footerContactSection" class="footerSection">
+                <h4 id="footerContactTitle" class="footerTitle">Contact</h4>
+                <address id="footerAddress" class="address">
+                    Email:
+                    <a href="mailto:contact@educonnect.example" id="footerEmail" class="footerLink" title="Send us an email">
+                        contact@educonnect.example
+                    </a>
+                </address>
+            </section>
 
-            <p>
-                Follow us:
-                <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a> |
-                <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a> |
-                <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
-            </p>
-
-            <p> &copy; 2025 EduConnect. All rights reserved.</p>
+            <section id="footerSocialSection" class="footerSection">
+                <h4 id="footerSocialTitle" class="footerTitle">Social</h4>
+                <ul id="footerSocialList" class="footerList">
+                    <li>
+                        <a href="https://www.linkedin.com" id="footerLinkedIn" class="footerLink" target="_blank" rel="noopener noreferrer" title="LinkedIn">LinkedIn</a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com" id="footerFacebook" class="footerLink" target="_blank" rel="noopener noreferrer" title="Facebook">Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com" id="footerTwitter" class="footerLink" target="_blank" rel="noopener noreferrer" title="Twitter">Twitter</a>
+                    </li>
+                </ul>
+            </section>
         </div>
+
+        <section id="footerInfo" class="footerInfo">
+            <p id="copyrightText" class="footerText">&copy; 2025 EduConnect. All rights reserved.</p>
+            <p id="updatedText" class="footerText">
+                Last Updated:
+                <time datetime="2025-12-31" id="lastUpdated" class="timeText" title="Last updated date">
+                    December 31, 2025
+                </time>
+            </p>
+        </section>
     </footer>
     <!-- ========== END FOOTER ========== -->
 
