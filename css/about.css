@@ -1,0 +1,183 @@
+/*
+ID & Name:    [Your ID & Full Name]
+Course:       CSE211 Web Programming
+Assignment:   Course Project
+Date:         2025/12/30
+Description:  About page specific styles.
+              Unique styling for purpose, audience, and how-it-works sections.
+*/
+
+/* Website purpose section */
+.website-purpose {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border-left: 5px solid var(--primary);
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.website-purpose h3 {
+  color: var(--primary);
+  font-size: 1.75rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.website-purpose p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.website-purpose figure {
+  margin: 0;
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.website-purpose img {
+  border-radius: 6px;
+}
+
+/* Target audience section */
+.target-audience {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border-left: 5px solid var(--accent);
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.target-audience h3 {
+  color: var(--accent);
+  font-size: 1.75rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.target-audience ul {
+  background-color: var(--white);
+  padding: 2rem 2rem 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 0;
+}
+
+.target-audience li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.target-audience li:last-child {
+  margin-bottom: 0;
+}
+
+.target-audience li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* How it works section */
+.how-it-works {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border-left: 5px solid var(--success);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.how-it-works h3 {
+  color: var(--success);
+  font-size: 1.75rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+/* Steps list styling */
+.how-it-works ol {
+  background-color: var(--white);
+  padding: 2rem 2rem 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.how-it-works li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.how-it-works li:last-child {
+  margin-bottom: 0;
+}
+
+.how-it-works li::marker {
+  color: var(--success);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Definition list - features explanation */
+.how-it-works dl {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: grid;
+  gap: 1.5rem;
+}
+
+.how-it-works dt {
+  font-size: 1.15rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(90deg, #d1fae5 0%, #a7f3d0 100%);
+  border-radius: 6px;
+  margin: 0;
+}
+
+.how-it-works dd {
+  margin-left: 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--success);
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .website-purpose,
+  .target-audience,
+  .how-it-works {
+    padding: 1.5rem;
+  }
+
+  .website-purpose h3,
+  .target-audience h3,
+  .how-it-works h3 {
+    font-size: 1.5rem;
+  }
+
+  .target-audience ul,
+  .how-it-works ol,
+  .how-it-works dl {
+    padding: 1.5rem;
+  }
+
+  .how-it-works ol {
+    padding-left: 2rem;
+  }
+
+  .target-audience ul {
+    padding-left: 2rem;
+  }
+}
+

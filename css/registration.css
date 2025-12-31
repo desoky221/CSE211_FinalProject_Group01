@@ -1,0 +1,78 @@
+/*
+ID & Name:    [Your ID & Full Name]
+Course:       CSE211 Web Programming
+Assignment:   Course Project
+Date:         2025/12/30
+Description:  Registration page specific styles.
+              Only contains unique styling for the registration form layout.
+*/
+
+/* Registration form container */
+.registration-form {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Consent and submit section */
+.consent-submit {
+  background-color: #f0f9ff;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+  margin-top: 2rem;
+}
+
+.consent-submit h3 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.consent-submit ul {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--accent);
+}
+
+/* Checkbox styling for consent */
+.consent-submit p:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.consent-submit input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.consent-submit label[for="agree"] {
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* Button container */
+.consent-submit p:last-child {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .registration-form {
+    max-width: 100%;
+  }
+
+  .consent-submit {
+    padding: 1.5rem;
+  }
+}
+

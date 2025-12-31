@@ -1,0 +1,119 @@
+/* ==========================================
+   PRIVACY POLICY PAGE SPECIFIC STYLES
+   ==========================================
+   Only unique styles for privacy.html
+   Common styles are in common.css
+   ========================================== */
+
+/* Privacy Page Specific Styles */
+#privacyPage main {
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+/* Section Styling */
+#privacyPage section {
+    background-color: #ffffff;
+    border-left: 4px solid #667eea;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#privacyPage section h2 {
+    color: #667eea;
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+#privacyPage section h3 {
+    color: #555;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* List Styling */
+#privacyPage ul,
+#privacyPage ol {
+    line-height: 1.8;
+    color: #555;
+    padding-left: 1.5rem;
+}
+
+#privacyPage li {
+    margin-bottom: 0.75rem;
+}
+
+#privacyPage li strong {
+    color: #333;
+}
+
+/* Important Notice Box */
+#privacyPage .notice {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 6px;
+}
+
+#privacyPage .notice h3 {
+    color: #856404;
+    margin-top: 0;
+}
+
+/* Effective Date */
+#privacyPage .effective-date {
+    background-color: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-style: italic;
+    color: #0056b3;
+}
+
+/* Contact Information Highlight */
+#privacyPage address {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 1.5rem;
+    border-radius: 6px;
+    font-style: normal;
+    line-height: 1.8;
+}
+
+#privacyPage address strong {
+    display: block;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+#privacyPage p {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #privacyPage main {
+        margin: 1rem auto;
+    }
+
+    #privacyPage section {
+        padding: 1.5rem;
+    }
+
+    #privacyPage section h2 {
+        font-size: 1.5rem;
+    }
+}
+

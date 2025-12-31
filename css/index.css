@@ -1,0 +1,121 @@
+.content-columns {
+  display: flex;
+  gap: 2.5rem;             
+  margin-top: 2rem;        
+}
+
+.event-listings {
+  flex: 6;
+}
+
+.search-filter-sidebar {
+  flex: 4;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+  min-width: 320px;
+}
+
+/* Search Form Styling */
+.search-filter-sidebar fieldset {
+  border: 2px solid #6366f1;
+  padding: 1.5rem;
+}
+
+.search-filter-sidebar legend {
+  color: #6366f1;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.search-filter-sidebar label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  color: #1e293b;
+}
+
+.search-filter-sidebar input,
+.search-filter-sidebar select {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.search-filter-sidebar button {
+  width: 100%;
+  margin: 1rem 0 0.5rem 0;
+  padding: 1rem;
+  font-size: 1.05rem;
+}
+
+.search-filter-sidebar button[type="submit"] {
+  background-color: #6366f1;
+}
+
+.search-filter-sidebar button[type="reset"] {
+  background-color: #94a3b8;
+}
+
+/* Quick Links in Sidebar */
+.search-filter-sidebar nav {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.search-filter-sidebar nav h3 {
+  font-size: 1.1rem;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.search-filter-sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.search-filter-sidebar nav li {
+  margin-bottom: 0.75rem;
+}
+
+.search-filter-sidebar nav a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.search-filter-sidebar nav a:hover {
+  color: #4f46e5;
+  padding-left: 0.5rem;
+}
+
+.event-listings article {
+  border-left: 6px solid var(--secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-listings article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+  .content-columns {
+    flex-direction: column;
+  }
+  
+  .search-filter-sidebar {
+    order: -1; /* Puts search bar on top for mobile users */
+    width: 100%;
+  }
+}
+
+

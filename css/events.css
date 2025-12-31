@@ -1,0 +1,179 @@
+/*
+ID & Name:    [Your ID & Full Name]
+Course:       CSE211 Web Programming
+Assignment:   Course Project
+Date:         2025/12/30
+Description:  Events page specific styles.
+              Enhanced table styling and event information display.
+*/
+
+/* Events table section */
+.events-table {
+  margin-bottom: 3rem;
+}
+
+.events-table h3 {
+  color: var(--primary);
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Enhanced table styling */
+.events-table table {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.events-table caption {
+  font-size: 1.3rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0;
+  color: var(--primary);
+}
+
+.events-table thead th {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1.25rem 1rem;
+}
+
+.events-table tbody td {
+  padding: 1.25rem 1rem;
+  font-size: 1rem;
+}
+
+/* Alternating row colors */
+.events-table tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+.events-table tbody tr:nth-child(even) {
+  background-color: var(--white);
+}
+
+/* Enhanced hover effect */
+.events-table tbody tr:hover {
+  background-color: #e0f2fe;
+  transform: scale(1.01);
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.1);
+  transition: all 0.2s ease;
+}
+
+/* Event name column styling */
+.events-table tbody td:first-child {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Cost column styling - highlight free events */
+.events-table tbody td:last-child {
+  font-weight: 600;
+  text-align: center;
+}
+
+.events-table tbody tr:has(td:last-child:contains("Free")) td:last-child {
+  color: var(--success);
+  background-color: #f0fdf4;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+/* Date column styling */
+.events-table tbody td:nth-child(2) {
+  color: #64748b;
+}
+
+/* Location column with icon */
+.events-table tbody td:nth-child(3)::before {
+  content: "📍 ";
+  margin-right: 0.25rem;
+}
+
+/* Helpful notes section */
+.helpful-notes {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border-left: 5px solid var(--accent);
+  margin-bottom: 2rem;
+}
+
+.helpful-notes h3 {
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.helpful-notes ol {
+  background-color: var(--white);
+  padding: 2rem 2rem 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.helpful-notes li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.helpful-notes li:last-child {
+  margin-bottom: 0;
+}
+
+/* Related media section */
+.related-media {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border-left: 5px solid var(--success);
+}
+
+.related-media h3 {
+  color: var(--success);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.related-media figure {
+  margin: 0;
+}
+
+.related-media img {
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.related-media img:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .events-table table {
+    font-size: 0.85rem;
+  }
+
+  .events-table thead th,
+  .events-table tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .events-table caption {
+    font-size: 1.1rem;
+  }
+
+  .helpful-notes,
+  .related-media {
+    padding: 1.5rem;
+  }
+
+  .helpful-notes ol {
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+  }
+}
+

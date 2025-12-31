@@ -1,0 +1,209 @@
+/*
+ID & Name:    [Your ID & Full Name]
+Course:       CSE211 Web Programming
+Assignment:   Course Project
+Date:         2025/12/30
+Description:  Budget calculator page specific styles.
+              Calculator-style form with organized cost fields.
+*/
+
+/* Budget form section */
+.budget-form {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+
+.budget-form form {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.budget-form fieldset {
+  background-color: var(--white);
+  position: relative;
+}
+
+.budget-form legend {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.15rem;
+}
+
+/* Input fields with icon-like styling */
+.budget-form p {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.budget-form label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1.05rem;
+}
+
+.budget-form input[type="number"] {
+  font-size: 1.1rem;
+  padding: 0.875rem 1rem;
+  border: 2px solid #cbd5e1;
+  background-color: var(--white);
+}
+
+.budget-form input[type="number"]:focus {
+  border-color: var(--primary);
+  background-color: #f8fafc;
+}
+
+/* Add currency symbol before inputs */
+.budget-form input[type="number"] {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.budget-form p {
+  position: relative;
+}
+
+.budget-form label::after {
+  content: " ($)";
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Calculation guide section */
+.budget-form fieldset:nth-of-type(2) {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: var(--accent);
+  margin-top: 2rem;
+}
+
+.budget-form fieldset:nth-of-type(2) legend {
+  background-color: var(--accent);
+}
+
+.budget-form fieldset:nth-of-type(2) ol {
+  background-color: var(--white);
+  padding: 1.75rem 1.75rem 1.75rem 2.75rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.budget-form fieldset:nth-of-type(2) li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.budget-form fieldset:nth-of-type(2) li::marker {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.budget-form fieldset:nth-of-type(2) dl {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: grid;
+  gap: 1rem;
+}
+
+.budget-form fieldset:nth-of-type(2) dt {
+  background-color: #fef3c7;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.budget-form fieldset:nth-of-type(2) dd {
+  margin-left: 0;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--accent);
+}
+
+/* Button styling specific to calculator */
+.budget-form button {
+  font-size: 1.05rem;
+  padding: 1rem 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.budget-form button[type="submit"] {
+  background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+}
+
+.budget-form button[type="reset"] {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+/* Budget tip sidebar */
+.budget-tip {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-left: 5px solid var(--success);
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.budget-tip h3 {
+  color: var(--success);
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+}
+
+.budget-tip ul {
+  background-color: var(--white);
+  padding: 1.75rem 1.75rem 1.75rem 2.75rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 0;
+}
+
+.budget-tip li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.budget-tip li:last-child {
+  margin-bottom: 0;
+}
+
+.budget-tip li::marker {
+  color: var(--success);
+  content: "💡 ";
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .budget-form,
+  .budget-tip {
+    max-width: 100%;
+  }
+
+  .budget-form form {
+    padding: 1.5rem;
+  }
+
+  .budget-form fieldset {
+    padding: 1.25rem;
+  }
+
+  .budget-form legend {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .budget-form fieldset:nth-of-type(2) ol {
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+  }
+
+  .budget-tip ul {
+    padding: 1.5rem 1.5rem 1.5rem 2rem;
+  }
+}
+
