@@ -32,7 +32,8 @@ Description:  About page specific styles.
 }
 
 .website-purpose figure {
-  margin: 0;
+  margin: 1.5rem auto;
+  max-width: 500px;
   background-color: var(--white);
   padding: 1rem;
   border-radius: 8px;
@@ -41,6 +42,12 @@ Description:  About page specific styles.
 
 .website-purpose img {
   border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+}
+
+.website-purpose figcaption {
+  text-align: center;
 }
 
 /* Target audience section */

@@ -72,21 +72,9 @@
       <section class="content-columns" aria-label="Homepage content columns">
         <!-- ========== LEFT COLUMN: EVENT LISTINGS ========== -->
         <section class="event-listings" aria-label="Event listings">
-          <h3>Featured Campus Events </h3>
-
-          <ul id="highlightsList" class="simpleList">
-            <li>Specialized technical training sessions</li>
-            <li>Seminars: Talks by faculty and guest speakers</li>
-            <li>Networking: Meet students and professionals</li>
-          </ul>
-
-          <article id="eventWebDesign" class="eventBox">
-            <h4 class="eventTitle">Full-Stack Development Workshop</h4>
-            <p class="eventText">
-             Master the art of building responsive web applications with EventsX.
-              <time datetime="2026-01-10">January 10, 2026</time>
-            </p>
-
+          <!-- 3 Workshops in a Row -->
+          <div class="workshops-row">
+            <article id="eventWebDesign" class="eventBox workshop-card">
             <figure class="mediaBox">
               <img
                 src="images/study1.jpeg"
@@ -95,30 +83,103 @@
               <figcaption>Collaborative learning during our monthly Tech Sprints.</figcaption>
             </figure>
 
-            <ol class="numberList">
-              <li>Register through the Registration portal.</li>
-              <li>Bring your laptop .</li>
-              <li>Arrive 15 minutes early.</li>
-              <li>Join a team and start coding.</li>
-            </ol>
+            <div>
+              <h4 class="eventTitle">Full-Stack Dev Workshop</h4>
+              <p class="eventText">
+               Master the art of building responsive web applications with EventsX.
+                <time datetime="2026-01-10">January 10, 2026</time>
+              </p>
 
-            <p>
-              <a href="pages/events.html" id="eventsLink" class="textLink">View full event schedule</a>
-            </p>
-          </article>
+              <ol class="numberList">
+                <li>Register through the Registration portal.</li>
+                <li>Bring your laptop.</li>
+                <li>Arrive 15 minutes early.</li>
+              </ol>
 
-          <article id="eventCareer" class="eventBox">
-            <h4 class="eventTitle">Career Prep Seminar</h4>
-            <p class="eventText">
-              CV tips and interview practice.
-              <time datetime="2026-02-05">February 5, 2026</time>
-            </p>
+              <p>
+                <a href="pages/events.html" id="eventsLink" class="textLink">View full event schedule</a>
+              </p>
+            </div>
+            </article>
 
+            <article id="eventML" class="eventBox workshop-card">
             <figure class="mediaBox">
-              <video src="videos/video.mp4" controls width="620"></video>
+              <img
+                src="images/machine learning.jpg"
+                alt="Machine learning and AI workshop session"
+              >
+              <figcaption>Explore AI and ML concepts.</figcaption>
+            </figure>
+
+            <div>
+              <h4 class="eventTitle">Machine Learning Workshop</h4>
+              <p class="eventText">
+                Dive into AI fundamentals and learn to build intelligent systems.
+                <time datetime="2026-03-15">March 15, 2026</time>
+              </p>
+
+              <ol class="numberList">
+                <li>Basic Python knowledge required.</li>
+                <li>Bring laptop with Jupyter Notebook.</li>
+                <li>Hands-on projects with real datasets.</li>
+              </ol>
+
+              <p>
+                <a href="pages/events.html" class="textLink">Register for ML Workshop</a>
+              </p>
+            </div>
+            </article>
+
+            <article id="eventDataAnalysis" class="eventBox workshop-card">
+            <figure class="mediaBox">
+              <img
+                src="images/data analysis.jpg"
+                alt="Data analysis and visualization workshop"
+              >
+              <figcaption>Transform data into insights.</figcaption>
+            </figure>
+
+            <div>
+              <h4 class="eventTitle">Data Analysis Fundamentals</h4>
+              <p class="eventText">
+                Master data visualization and statistical analysis using modern tools.
+                <time datetime="2026-04-20">April 20, 2026</time>
+              </p>
+
+              <ol class="numberList">
+                <li>Learn Excel, Python, and Tableau.</li>
+                <li>Work with real business datasets.</li>
+                <li>Create professional dashboards.</li>
+              </ol>
+
+              <p>
+                <a href="pages/events.html" class="textLink">Register for Data Analysis</a>
+              </p>
+            </div>
+            </article>
+          </div>
+          <!-- End Workshops Row -->
+
+          <!-- Career Prep Seminar - Full Width Below -->
+          <article id="eventCareer" class="eventBox career-seminar">
+            <figure class="mediaBox">
+              <video src="videos/video.mp4" controls></video>
               <figcaption>Career seminar promo video.</figcaption>
             </figure>
+
+            <div>
+              <h4 class="eventTitle">Career Prep Seminar</h4>
+              <p class="eventText">
+                CV tips and interview practice.
+                <time datetime="2026-02-05">February 5, 2026</time>
+              </p>
+
+              <p>
+                <a href="pages/events.html" class="textLink">Learn more about career prep</a>
+              </p>
+            </div>
           </article>
+          <!-- End Career Seminar -->
 
           <!-- Definition list requirement -->
           <section aria-label="Event terminology">

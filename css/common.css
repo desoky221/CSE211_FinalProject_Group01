@@ -738,7 +738,7 @@ article:hover,
 }
 
 /* ============================================
-   MEDIA (Images & Videos)
+   MEDIA (Images & Videos) - REDUCED SIZES
    ============================================ */
 
 img {
@@ -751,13 +751,15 @@ img {
 figure,
 .mediaBox,
 .mediaSection {
-  margin: var(--spacing-xl) 0;
+  margin: var(--spacing-lg) 0;
   position: relative;
+  max-width: 550px;
 }
 
 figure img,
 .mediaImg {
   width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -777,17 +779,27 @@ figcaption,
   font-style: italic;
   color: var(--color-text-light);
   font-size: var(--font-size-sm);
-  text-align: center;
-  padding: 0 var(--spacing-md);
+  text-align: left;
+  padding: var(--spacing-sm) 0;
 }
 
-/* Video Styling */
+/* Video Styling - Medium Size */
 video {
   width: 100%;
+  max-width: 550px;
   height: auto;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   background-color: var(--color-bg-tertiary);
+  display: block;
+}
+
+/* Logo Images (Keep Original Size) */
+#logoImage,
+.logoImg,
+header img {
+  max-width: 180px;
+  height: auto;
 }
 
 /* ============================================

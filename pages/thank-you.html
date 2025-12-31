@@ -95,55 +95,74 @@
 
     <!-- ========== FOOTER SECTION ========== -->
     <footer id="siteFooter" class="footer">
-      <div id="footerContent" class="footerContentBox">
+      <div id="footerContent" class="footerContent">
         <section id="footerLinksSection" class="footerSection">
-          <h4 class="footerTitle">Links</h4>
-          <ul class="footerList">
-            <li><a href="about.html" class="footerLink">About Us</a></li>
-            <li><a href="contact.html" class="footerLink">Contact</a></li>
-            <li><a href="privacy.html" class="footerLink">Privacy Policy</a></li>
-            <li><a href="terms.html" class="footerLink">Terms of Service</a></li>
+          <h4 id="footerLinksTitle" class="footerTitle">Links</h4>
+          <ul id="footerLinksList" class="footerList">
+            <li><a href="about.html" id="footerAbout" class="footerLink" title="About EduConnect">About Us</a></li>
+            <li><a href="contact.html" id="footerContact" class="footerLink" title="Contact page">Contact</a></li>
+            <li><a href="privacy.html" id="footerPrivacy" class="footerLink" title="Privacy policy placeholder">Privacy Policy</a></li>
+            <li><a href="terms.html" id="footerTerms" class="footerLink" title="Terms of service placeholder">Terms of Service</a></li>
           </ul>
         </section>
 
         <section id="footerContactSection" class="footerSection">
-          <h4 class="footerTitle">Contact</h4>
-          <address class="addressBox">
+          <h4 id="footerContactTitle" class="footerTitle">Contact</h4>
+          <address id="footerAddress" class="address">
             Email:
-            <a href="mailto:contact@educonnect.example" class="footerLink">
-              contact@educonnect.example
-            </a>
+            <a
+              href="mailto:contact@educonnect.example"
+              id="footerEmail"
+              class="footerLink"
+              title="Send us an email"
+            >contact@educonnect.example</a>
           </address>
         </section>
 
         <section id="footerSocialSection" class="footerSection">
-          <h4 class="footerTitle">Social</h4>
-          <ul class="footerList">
+          <h4 id="footerSocialTitle" class="footerTitle">Social</h4>
+          <ul id="footerSocialList" class="footerList">
             <li>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="footerLink">
-                LinkedIn
-              </a>
+              <a
+                href="https://www.linkedin.com"
+                id="footerLinkedIn"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+              >LinkedIn</a>
             </li>
             <li>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="footerLink">
-                Facebook
-              </a>
+              <a
+                href="https://www.facebook.com"
+                id="footerFacebook"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook"
+              >Facebook</a>
             </li>
             <li>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footerLink">
-                Twitter
-              </a>
+              <a
+                href="https://twitter.com"
+                id="footerTwitter"
+                class="footerLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Twitter"
+              >Twitter</a>
             </li>
           </ul>
         </section>
       </div>
 
-      <section id="footerInfo" class="footerInfoBox">
-        
-        <p class="footerText">&copy; 2025 EduConnect. All rights reserved.</p>
-        <p class="footerText">
+      <section id="footerInfo" class="footerInfo">
+        <p id="copyrightText" class="footerText">&copy; 2025 EduConnect. All rights reserved.</p>
+        <p id="updatedText" class="footerText">
           Last Updated:
-          <time datetime="2025-12-29">December 29, 2025</time>
+          <time datetime="2025-12-29" id="lastUpdated" class="timeText" title="Last updated date">
+            December 29, 2025
+          </time>
         </p>
       </section>
     </footer>

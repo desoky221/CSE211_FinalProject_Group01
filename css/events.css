@@ -55,6 +55,20 @@ Description:  Events page specific styles.
   background-color: var(--color-bg-secondary);
 }
 
+/* Fix rowspan rows - match the row above them exactly */
+/* The bootcamp row is 7th (odd), so it should be tertiary, but we want it to match row 6 (even/secondary) */
+#eventsTable tbody tr:nth-child(7),
+#eventsTable tbody tr:nth-child(8) {
+  background-color: var(--color-bg-secondary) !important;
+}
+
+/* Ensure all cells in rowspan rows are transparent so they inherit row background */
+#eventsTable tbody tr:nth-child(7) td,
+#eventsTable tbody tr:nth-child(8) td {
+  background-color: transparent !important;
+  border-color: transparent;
+}
+
 /* Enhanced hover effect */
 #eventsTable tbody tr:hover {
   background-color: rgba(74, 155, 142, 0.08);
@@ -91,6 +105,24 @@ Description:  Events page specific styles.
 #eventsTable tbody td:nth-child(3)::before {
   content: "📍 ";
   margin-right: var(--spacing-xs);
+}
+
+/* Special header row - make it match regular rows */
+/* Special header row - match Python Programming Workshop row (5th row, odd) */
+#eventsTable tbody tr.special-header {
+  background-color: var(--color-bg-tertiary) !important;
+}
+
+#eventsTable tbody tr.special-header td {
+  background-color: transparent !important;
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-style: italic;
+}
+
+#eventsTable tbody tr.special-header:hover {
+  background-color: rgba(74, 155, 142, 0.08);
 }
 
 /* Helpful notes section */
@@ -141,18 +173,25 @@ Description:  Events page specific styles.
 }
 
 #gallerySection figure {
-  margin: 0;
+  margin: 0 auto var(--spacing-lg) auto;
+  max-width: 500px;
 }
 
 #gallerySection img {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   transition: transform var(--transition-base), box-shadow var(--transition-base);
+  max-width: 100%;
+  height: auto;
 }
 
 #gallerySection img:hover {
   transform: scale(1.02);
   box-shadow: var(--shadow-xl);
+}
+
+#gallerySection figcaption {
+  text-align: center;
 }
 
 /* Responsive design */

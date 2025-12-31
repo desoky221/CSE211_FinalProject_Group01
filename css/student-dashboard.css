@@ -5,6 +5,28 @@
    Common styles are in common.css
    ========================================== */
 
+/* Cross-Browser Button Reset */
+button, input[type="button"], input[type="submit"], input[type="reset"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Cross-Browser Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
 /* Dashboard Container */
 #mainContent {
   max-width: 100%;
@@ -146,33 +168,149 @@
 #enrolled-courses article img {
   border-radius: var(--radius-md);
   object-fit: cover;
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   box-shadow: var(--shadow-sm);
 }
 
+#enrolled-courses article .course-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 #enrolled-courses article h3 {
-  color: var(--color-primary);
+  color: #6366F1;
   margin-top: 0;
-  margin-bottom: var(--spacing-sm);
-  font-size: var(--font-size-xl);
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
 }
 
 #enrolled-courses article p {
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+  color: #6B7280;
+  font-size: 1rem;
 }
 
-#enrolled-courses article a {
-  color: var(--color-secondary);
-  font-weight: var(--font-weight-semibold);
+#enrolled-courses article strong {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+#enrolled-courses article time {
+  background-color: #F59E0B;
+  color: #FFFFFF;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* Continue Learning Button - Cross-Browser Compatible */
+.continue-btn {
+  /* Display & Layout */
+  display: inline-block;
+  width: auto;
+  min-width: 180px;
+  
+  /* Background & Colors */
+  background: #6366F1;
+  background: -webkit-linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  background: -moz-linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  background: -o-linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  color: #FFFFFF;
+  
+  /* Spacing */
+  padding: 0.875rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  
+  /* Border & Shape */
+  border: none;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  
+  /* Typography */
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  white-space: nowrap;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  
+  /* Effects */
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  -webkit-box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  -moz-box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  
+  /* Transitions */
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  
+  /* Behavior */
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  
+  /* Browser-specific resets */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Prevent text selection */
+  -webkit-touch-callout: none;
 }
 
-#enrolled-courses article a:hover {
-  color: var(--color-primary);
-  text-decoration: underline;
+.continue-btn:hover {
+  background: #F59E0B;
+  background: -webkit-linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  background: -moz-linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  background: -o-linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  
+  transform: translateY(-2px);
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  -o-transform: translateY(-2px);
+  
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+  -webkit-box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+  -moz-box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
+.continue-btn:active {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.continue-btn:focus {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+}
+
+.continue-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.continue-btn:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
 }
 
 /* Statistics Section */
@@ -367,8 +505,8 @@
 
 #badgesList img {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   object-fit: cover;
 }
 

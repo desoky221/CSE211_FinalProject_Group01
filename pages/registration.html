@@ -57,62 +57,73 @@
     </nav>
 
     <main id="mainContent">
-        <header>
-            <h2>Event Registration</h2>
-            <p>Complete the form below to participate in our dynamic workshops.</p>
-        </header>
-
-        <section id="formSection">
-            <form action="thank-you.html" id="registrationForm" method="GET">
-                
-                <fieldset>
-                    <legend>Personal Details</legend>
-                    <p>
-                        <label for="fullName">Full Name:</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
-                    </p>
-                    <p>
-                        <label for="email">University Email:</label>
-                        <input type="email" id="email" name="email" placeholder="name@educonnect.com" required>
-                    </p>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Event Selection</legend>
-                    <p>
-                        <label for="eventName">Select Event:</label>
-                        <select id="eventName" name="eventName" required>
-                            <option value="">-- Please choose an event --</option>
-                            <option value="web-sprint">Web Design Sprint</option>
-                            <option value="career-prep">Career Prep Seminar</option>
-                            <option value="networking">Networking Night</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="attendance">Attendance Mode:</label>
-                        <select id="attendance" name="attendance">
-                            <option value="in-person">In-Person</option>
-                            <option value="online">Online</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="comments">Special Requirements:</label><br>
-                        <textarea id="comments" name="comments" rows="4" cols="40"></textarea>
-                    </p>
-                </fieldset>
-
-                <p>
-                    <input type="checkbox" id="confirm" name="confirm" required>
-                    <label for="confirm">I confirm that the information provided is accurate.</label>
-                </p>
-
-                <div class="form-actions">
-                    <button type="submit">Submit Registration</button>
-                    <button type="reset">Clear Form</button>
-                </div>
-            </form>
-        </section>
-    </main>
+      <div class="registration-wrapper">
+          <section class="form-container">
+              <div class="form-header">
+                  <p>Already a member? <a href="student-dashboard.html">Sign in</a></p>
+              </div>
+  
+              <div class="form-content">
+                  <h1>Sign Up</h1>
+                  <p class="subtitle">Secure your spot at our upcoming campus workshops.</p>
+  
+                  <form action="thank-you.html" id="registrationForm" method="GET">
+                      <div class="input-group">
+                          <span class="icon">👤</span>
+                          <input type="text" placeholder="Full Name" required>
+                      </div>
+  
+                      <div class="input-group">
+                          <span class="icon">✉️</span>
+                          <input type="email" placeholder="Email Address" required>
+                      </div>
+  
+                      <div class="input-group">
+                          <span class="icon">🔒</span>
+                          <input type="password" placeholder="Password" required>
+                      </div>
+  
+                      <div class="input-group">
+                          <span class="icon">📅</span>
+                          <select required>
+                              <option value="" disabled selected>Select Event</option>
+                              <option value="web-sprint">Web Design Sprint</option>
+                              <option value="career-prep">Career Prep Seminar</option>
+                              <option value="networking">Networking Night</option>
+                              <option value="data-analysis">Data Analysis</option>
+                              <option value="ai-machine-learning">AI & Machine Learning</option>
+                              <option value="full-stack-development">Full Stack Development</option>
+                              <option value="python-programming">Python Programming</option>
+                              <option value="research-poster-day">Research Poster Day</option>
+                          </select>
+                      </div>
+  
+                      <button type="submit" class="main-submit">Sign Up <span>→</span></button>
+  
+                      <div class="social-divider">
+                          <span>or</span>
+                          <div class="social-icons">
+                              <a href="#" class="fb">f</a>
+                              <a href="#" class="google">G</a>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </section>
+  
+          <section class="visual-container">
+              <div class="floating-card card-1">
+                  <img src="../images/Registration_Paper-removebg-preview.png" alt="Application">
+              </div>
+              
+              <div class="floating-card card-2">
+                  <img src="../images/Registration_Confirmed-removebg-preview.png" alt="Confirmed">
+              </div>
+  
+              <div class="blob-shape"></div>
+          </section>
+      </div>
+  </main>
       <!-- ========== END MAIN SECTION ========== -->
 
       <!-- ========== FOOTER SECTION ========== -->
