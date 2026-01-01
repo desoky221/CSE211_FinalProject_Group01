@@ -418,7 +418,8 @@ main > *:not(.dashboard-grid):not(.content-columns),
 
 main > header,
 .mainHeaderBox,
-.pageHeader {
+.pageHeader,
+.pageHeaderBox {
   margin-bottom: var(--spacing-2xl);
   padding-bottom: var(--spacing-lg);
   border-bottom: 3px solid var(--color-primary);
@@ -1142,7 +1143,8 @@ footer::before {
   
   main > header,
   .mainHeaderBox,
-  .pageHeader {
+  .pageHeader,
+  .pageHeaderBox {
     margin-bottom: var(--spacing-lg);
     padding-bottom: var(--spacing-md);
   }
@@ -1165,7 +1167,8 @@ footer::before {
   }
   
   .brandBox,
-  .brandSection {
+  .brandSection,
+  .brand {
     flex-direction: column;
     text-align: center;
   }
