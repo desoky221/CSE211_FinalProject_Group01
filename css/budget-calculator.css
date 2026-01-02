@@ -10,6 +10,26 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   padding: 0 1.5rem 4rem;
 }
 
+/* Normalize text spacing */
+#pageHeader {
+  padding: 3rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#pageIntro {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+#budgetSection {
+  margin-bottom: 2rem;
+}
+
+#budgetSectionTitle {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+}
+
 /* ============================================
    CONTAINER CARD (Soft Glass Look)
    ============================================ */
@@ -33,7 +53,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
    LEFT COLUMN: INPUTS (Spacious & Clean)
    ============================================ */
 #costFieldset {
-  padding: 3rem;
+  padding: 2.5rem;
   background: white;
   border: none;
   display: flex;
@@ -45,7 +65,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   font-size: 1.6rem;
   font-weight: 800;
   color: var(--color-primary);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.5px;
   border-bottom: none;
   padding: 0;
@@ -72,7 +92,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--color-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -104,7 +124,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
 
 /* Buttons */
 .buttonRow {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 0;
   display: flex;
   gap: 1rem;
@@ -118,7 +138,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
 
 .buttonRow {
   grid-column: 1;
-  padding: 0 3rem 3rem;
+  padding: 0 2.5rem 2.5rem;
 }
 
 .actionBtn {
@@ -167,8 +187,8 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   background: #f1f8fa;
   /* Very soft teal/grey */
   border-left: 1px solid #e2e8f0;
-  /* Minimal padding as requested */
-  padding: 3rem 2rem;
+  /* Normalized padding */
+  padding: 2.5rem 2rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -179,7 +199,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   font-size: 1.25rem;
   font-weight: 700;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   opacity: 1;
   border: none;
 }
@@ -199,7 +219,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding: 0;
 }
 
@@ -229,7 +249,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   /* Push to bottom */
   background: white;
   border-radius: 20px;
-  padding: 1.5rem;
+  padding: 1.25rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
@@ -240,7 +260,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .definitionList dt:first-child {
@@ -264,7 +284,7 @@ Description:  Budget calculator styled with "Soft Modern" aesthetics.
 /* Tiny divider in receipt */
 .definitionList dt:not(:first-child) {
   border-top: 1px dashed #e2e8f0;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
 }
 
 /* Tips (Keep hidden or minimal) */

@@ -83,7 +83,8 @@ Description:  Privacy Policy page specific styles.
     border: 1px solid var(--color-border);
 }
 
-#privacyPage address {
+/* Only style address in main content, not footer */
+#privacyPage main address {
     background: var(--color-bg-tertiary);
     padding: 1.5rem;
     border-radius: var(--radius-md);
@@ -91,8 +92,20 @@ Description:  Privacy Policy page specific styles.
     border: 1px solid var(--color-border);
 }
 
-#privacyPage address strong {
+#privacyPage main address strong {
     display: block;
     color: var(--color-primary);
     margin-bottom: 0.5rem;
+}
+
+/* Ensure footer address matches footer links */
+#privacyPage footer .footerContent address {
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-style: normal;
+    color: var(--color-text-light);
+    font-size: 1rem;
+    line-height: 1.6;
 }

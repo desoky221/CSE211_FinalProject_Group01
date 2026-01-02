@@ -106,6 +106,48 @@ Description:  Registration page specific styles.
   color: var(--color-text-light);
 }
 
+/* Terms Checkbox */
+.terms-checkbox {
+  margin: 1.5rem 0;
+  padding: 0.75rem 0;
+}
+
+.terms-checkbox label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.terms-checkbox input[type="checkbox"]:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.terms-checkbox a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.terms-checkbox a:hover {
+  color: var(--color-secondary);
+}
+
 /* Button */
 .main-submit {
   width: 100%;
