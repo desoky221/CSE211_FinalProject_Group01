@@ -2,8 +2,7 @@
   "type": "module",
   "scripts": {
     "start": "node pages/backend/server.js",
-    "dev": "nodemon pages/backend/server.js",
-    "seed": "node pages/backend/scripts/seedEvents.js"
+    "dev": "nodemon pages/backend/server.js"
   },
   "dependencies": {
     "express": "^5.2.1",
