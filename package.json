@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "node pages/backend/server.js",
+    "dev": "nodemon pages/backend/server.js",
+    "seed": "node pages/backend/scripts/seedEvents.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.1",
+    "node": "^24.12.0",
+    "nodemon": "^3.1.11"
+  }
+}
+
