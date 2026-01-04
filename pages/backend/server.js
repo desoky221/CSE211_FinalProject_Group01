@@ -1,6 +1,9 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import eventRoutes from './routes/eventRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import enrollmentRoutes from './routes/enrollmentRoutes.js';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -16,12 +19,13 @@ connectDB();
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(cookieParser()); // Parse cookies
 
 // CORS middleware - Allow requests from frontend
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
@@ -33,6 +37,8 @@ app.use((req, res, next) => {
 
 // API Routes
 app.use('/api/events', eventRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/enrollments', enrollmentRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {

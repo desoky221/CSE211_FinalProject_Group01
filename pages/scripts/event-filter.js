@@ -10,9 +10,36 @@ window.addEventListener('DOMContentLoaded', function() {
   var tableBody = document.getElementById('tableBody');
   
   const API_URL = 'http://localhost:3000/api/events';
+  const ENROLLMENT_API_URL = 'http://localhost:3000/api/enrollments';
   
   var allEvents = [];
+  var userEnrollments = [];
+  var currentUser = null;
   
+  // ========== AUTH HELPERS ==========
+  function getAuthToken() {
+    return localStorage.getItem('authToken');
+  }
+  
+  function getCurrentUser() {
+    const userStr = localStorage.getItem('currentUser');
+    return userStr ? JSON.parse(userStr) : null;
+  }
+  
+  function isAdmin() {
+    const user = getCurrentUser();
+    return user && user.role === 'admin';
+  }
+  
+  function getAuthHeaders() {
+    const token = getAuthToken();
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+  }
+  
+  // ========== MODAL ELEMENTS ==========
   var addEventButton = document.getElementById('addEventButton');
   var addEventModal = document.getElementById('addEventModal');
   var closeModalBtn = document.getElementById('closeModalBtn');
@@ -21,21 +48,113 @@ window.addEventListener('DOMContentLoaded', function() {
   var formMessage = document.getElementById('formMessage');
   var submitEventBtn = document.getElementById('submitEventBtn');
   
+  // ========== ROLE-BASED UI ==========
+  function setupRoleBasedUI() {
+    currentUser = getCurrentUser();
+    
+    if (currentUser) {
+      // Show/hide Add Event button based on role
+      if (isAdmin()) {
+        if (addEventButton) {
+          addEventButton.style.display = 'block';
+        }
+      } else {
+        if (addEventButton) {
+          addEventButton.style.display = 'none';
+        }
+      }
+      
+      // Load user enrollments if student
+      if (!isAdmin()) {
+        fetchUserEnrollments();
+      }
+    } else {
+      // Not logged in - hide add event button
+      if (addEventButton) {
+        addEventButton.style.display = 'none';
+      }
+    }
+  }
   
+  // ========== FETCH USER ENROLLMENTS ==========
+  async function fetchUserEnrollments() {
+    const token = getAuthToken();
+    if (!token) return;
+    
+    try {
+      const response = await fetch(`${ENROLLMENT_API_URL}/my-enrollments`, {
+        headers: getAuthHeaders()
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          userEnrollments = result.data.map(e => e.event._id || e.event);
+          renderEvents(allEvents);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching enrollments:', error);
+    }
+  }
+  
+  // ========== ENROLLMENT FUNCTIONS ==========
+  async function enrollInEvent(eventId) {
+    const token = getAuthToken();
+    if (!token) {
+      alert('Please login to enroll in events');
+      window.location.href = 'login.html';
+      return;
+    }
+    
+    try {
+      const response = await fetch(`${ENROLLMENT_API_URL}/events/${eventId}`, {
+        method: 'POST',
+        headers: getAuthHeaders()
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert('Successfully enrolled in event!');
+        // Refresh enrollments and events
+        await fetchUserEnrollments();
+        await fetchEvents();
+      } else {
+        alert(result.message || 'Failed to enroll in event');
+      }
+    } catch (error) {
+      console.error('Enrollment error:', error);
+      alert('Failed to enroll in event. Please try again.');
+    }
+  }
+  
+  function isEnrolled(eventId) {
+    return userEnrollments.some(eId => String(eId) === String(eventId));
+  }
+  
+  // ========== MODAL FUNCTIONS ==========
   function openModal() {
-    addEventModal.classList.add('show');
-    document.body.style.overflow = 'hidden'; 
+    if (addEventModal) {
+      addEventModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
   }
   
   function closeModal() {
-    addEventModal.classList.remove('show');
-    document.body.style.overflow = ''; 
-    addEventForm.reset();
-    formMessage.className = 'form-message';
-    formMessage.textContent = '';
+    if (addEventModal) {
+      addEventModal.classList.remove('show');
+      document.body.style.overflow = '';
+      if (addEventForm) {
+        addEventForm.reset();
+      }
+      if (formMessage) {
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+      }
+    }
   }
   
-
   if (addEventButton) {
     addEventButton.addEventListener('click', openModal);
   }
@@ -47,7 +166,6 @@ window.addEventListener('DOMContentLoaded', function() {
   if (cancelBtn) {
     cancelBtn.addEventListener('click', closeModal);
   }
-
   
   if (addEventModal) {
     addEventModal.addEventListener('click', function(event) {
@@ -58,22 +176,25 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   
   document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape' && addEventModal.classList.contains('show')) {
+    if (event.key === 'Escape' && addEventModal && addEventModal.classList.contains('show')) {
       closeModal();
     }
   });
   
-  
-  
+  // ========== ADD EVENT FORM SUBMISSION ==========
   if (addEventForm) {
     addEventForm.addEventListener('submit', async function(event) {
       event.preventDefault();
       
-      formMessage.className = 'form-message';
-      formMessage.textContent = '';
+      if (formMessage) {
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+      }
       
-      submitEventBtn.disabled = true;
-      submitEventBtn.textContent = 'Adding...';
+      if (submitEventBtn) {
+        submitEventBtn.disabled = true;
+        submitEventBtn.textContent = 'Adding...';
+      }
       
       var formData = {
         title: document.getElementById('eventTitleInput').value.trim(),
@@ -87,39 +208,47 @@ window.addEventListener('DOMContentLoaded', function() {
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: getAuthHeaders(),
           body: JSON.stringify(formData)
         });
         
         const result = await response.json();
         
         if (result.success) {
-          formMessage.className = 'form-message success';
-          formMessage.textContent = 'Event added successfully!';
+          if (formMessage) {
+            formMessage.className = 'form-message success';
+            formMessage.textContent = 'Event added successfully!';
+          }
           
           setTimeout(function() {
             closeModal();
             fetchEvents();
           }, 1500);
         } else {
-          formMessage.className = 'form-message error';
-          formMessage.textContent = result.message || 'Failed to add event. Please try again.';
-          submitEventBtn.disabled = false;
-          submitEventBtn.textContent = 'Add Event';
+          if (formMessage) {
+            formMessage.className = 'form-message error';
+            formMessage.textContent = result.message || 'Failed to add event. Please try again.';
+          }
+          if (submitEventBtn) {
+            submitEventBtn.disabled = false;
+            submitEventBtn.textContent = 'Add Event';
+          }
         }
       } catch (error) {
         console.error('Error adding event:', error);
-        formMessage.className = 'form-message error';
-        formMessage.textContent = 'Failed to connect to server. Please make sure the server is running.';
-        submitEventBtn.disabled = false;
-        submitEventBtn.textContent = 'Add Event';
+        if (formMessage) {
+          formMessage.className = 'form-message error';
+          formMessage.textContent = 'Failed to connect to server. Please make sure the server is running.';
+        }
+        if (submitEventBtn) {
+          submitEventBtn.disabled = false;
+          submitEventBtn.textContent = 'Add Event';
+        }
       }
     });
   }
   
-  
+  // ========== FETCH AND RENDER EVENTS ==========
   async function fetchEvents() {
     try {
       const response = await fetch(API_URL);
@@ -143,7 +272,7 @@ window.addEventListener('DOMContentLoaded', function() {
     
     if (events.length === 0) {
       var emptyRow = document.createElement('tr');
-      emptyRow.innerHTML = '<td colspan="4" style="text-align: center; padding: 20px;">No events found</td>';
+      emptyRow.innerHTML = '<td colspan="5" style="text-align: center; padding: 20px;">No events found</td>';
       tableBody.appendChild(emptyRow);
       return;
     }
@@ -161,14 +290,38 @@ window.addEventListener('DOMContentLoaded', function() {
       
       var costDisplay = event.cost === 0 || event.cost === null ? 'Free' : '$' + event.cost;
       
+      // Create action cell based on role
+      var actionCell = '';
+      if (isAdmin()) {
+        // Admin sees nothing (or could add edit/delete later)
+        actionCell = '<td></td>';
+      } else {
+        // Student sees enroll button
+        if (isEnrolled(event._id)) {
+          actionCell = '<td><span style="color: green; font-weight: bold;">Enrolled</span></td>';
+        } else {
+          actionCell = `<td><button type="button" class="enroll-btn" data-event-id="${event._id}">Enroll</button></td>`;
+        }
+      }
+      
       row.innerHTML = `
         <td>${escapeHtml(event.title)}</td>
         <td><time datetime="${event.date}">${formattedDate}</time></td>
         <td>${escapeHtml(event.location)}</td>
         <td>${costDisplay}</td>
+        ${actionCell}
       `;
       
       tableBody.appendChild(row);
+    });
+    
+    // Add event listeners to enroll buttons
+    var enrollButtons = tableBody.querySelectorAll('.enroll-btn');
+    enrollButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        var eventId = this.getAttribute('data-event-id');
+        enrollInEvent(eventId);
+      });
     });
   }
   
@@ -179,7 +332,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   
   function displayError(message) {
-    tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px; color: red;">${message}</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: red;">${message}</td></tr>`;
   }
   
   function filterEvents() {
@@ -235,5 +388,7 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Initialize
+  setupRoleBasedUI();
   fetchEvents();
 });

@@ -96,19 +96,20 @@
     </section>
 
     <section id="tableSection" class="contentSection">
-      <div>
-        <h3 id="tableTitle" class="sectionTitle">Event Schedule</h3>
-        <button type="button" id="addEventButton" class="actionBtn add-event-btn">Add Event</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 id="tableTitle" class="sectionTitle" style="margin: 0;">Event Schedule</h3>
+        <button type="button" id="addEventButton" class="actionBtn add-event-btn" style="display: none;">+ Add Event</button>
       </div>
 
       <table id="eventsTable" class="table">
-        <caption id="tableCaption">EduConnect Events</caption>
+        <caption id="tableCaption">EduConnect Upcoming Events</caption>
         <thead id="tableHead">
           <tr>
             <th scope="col">Event Name</th>
             <th scope="col">Date</th>
             <th scope="col">Location</th>
             <th scope="col">Cost</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
 
@@ -244,8 +245,8 @@
   </div>
   <!-- ========== END ADD EVENT MODAL ========= -->
 
-  <script src="scripts/event-filter.js"></script>
   <script src="scripts/common.js"></script>
+  <script src="scripts/event-filter.js"></script>
 </body>
 
 </html>

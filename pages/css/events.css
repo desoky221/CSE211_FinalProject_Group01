@@ -216,10 +216,32 @@
   color: var(--color-secondary);
 }
 
-.table td:last-child {
+.table td:nth-last-child(2) {
   /* Cost */
   font-weight: 700;
   color: var(--color-primary);
+}
+
+/* Enroll Button */
+.enroll-btn {
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-secondary), #3d8b7d);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.enroll-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 155, 142, 0.3);
+}
+
+.enroll-btn:active {
+  transform: translateY(0);
 }
 
 /* Special Rows */
