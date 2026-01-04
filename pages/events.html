@@ -96,13 +96,13 @@
     </section>
 
     <section id="tableSection" class="contentSection">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h3 id="tableTitle" class="sectionTitle" style="margin: 0;">Event Schedule</h3>
-        <button type="button" id="addEventButton" class="actionBtn add-event-btn">+ Add Event</button>
+      <div>
+        <h3 id="tableTitle" class="sectionTitle">Event Schedule</h3>
+        <button type="button" id="addEventButton" class="actionBtn add-event-btn">Add Event</button>
       </div>
 
       <table id="eventsTable" class="table">
-        <caption id="tableCaption">EduConnect Upcoming Events</caption>
+        <caption id="tableCaption">EduConnect Events</caption>
         <thead id="tableHead">
           <tr>
             <th scope="col">Event Name</th>
@@ -111,9 +111,11 @@
             <th scope="col">Cost</th>
           </tr>
         </thead>
+
         <tbody id="tableBody">
-          <!-- Events will be loaded dynamically from the API -->
+
         </tbody>
+
       </table>
     </section>
 
