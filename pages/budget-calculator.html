@@ -5,16 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta
       name="description"
-      content="Budget calculator form for estimating event-related costs such as tickets, transportation, and materials."
+      content="Budget calculator form for estimating event-related costs such as tickets, transportation, and accommodation."
     >
     <meta
       name="keywords"
-      content="EduConnect, budget calculator, event costs, transportation, materials, estimate"
+      content="EduConnect, budget calculator, event costs, tickets, transportation, accommodation"
     >
     <meta name="author" content="Your Full Name">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/budget-calculator.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/budget-calculator.css">
     <title>Budget Calculator - EduConnect</title>
+
+    <!-- optional tiny inline style to keep total in same row nicely -->
+    <style>
+      .budgetInlineRow {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .budgetInlineRow .formInput {
+        flex: 1;
+        min-width: 180px;
+      }
+    </style>
   </head>
 
   <body id="budgetPage">
@@ -23,7 +37,7 @@
       <div id="brandSection" class="brand">
         <a href="../index.html" id="homeLink" class="logoLink" title="Go to EventsX Home">
           <img
-            src="images/1png.png"
+            src="../images/1png.png"
             alt="EventsX logo"
             id="logoImage"
             class="logoImg"
@@ -78,63 +92,135 @@
       <section id="budgetSection" class="contentSection">
         <h3 id="budgetSectionTitle" class="sectionTitle">Budget Form</h3>
 
-        <form action="#" method="post" id="budgetForm" class="formBox">
+        <!-- Const ticket price -->
+        <form
+          action="#"
+          method="post"
+          id="budgetForm"
+          class="formBox"
+          data-ticket-price="5"
+        >
           <fieldset id="costFieldset" class="fieldsetBox">
             <legend id="costLegend" class="legendText">Event Costs</legend>
 
+            <!-- Tickets (count + total in same row) -->
             <p class="formRow">
-              <label for="ticketCost" class="formLabel">Ticket / Entry Cost</label>
-              <input
-                type="number"
-                id="ticketCost"
-                name="ticketCost"
-                class="formInput"
-                min="0"
-                step="1"
-                placeholder="0"
-                title="Ticket cost"
-              >
+              <label for="ticketsCount" class="formLabel">Tickets (5$ each)</label>
+
+              <span class="budgetInlineRow">
+                <input
+                  type="number"
+                  id="ticketsCount"
+                  name="ticketsCount"
+                  class="formInput"
+                  min="1"
+                  step="1"
+                  value="1"
+                  title="Tickets count"
+                  required
+                >
+
+                <input
+                  type="text"
+                  id="ticketsTotalField"
+                  class="formInput"
+                  value="Total: $0.00"
+                  readonly
+                  aria-label="Tickets total"
+                  title="Tickets total"
+                >
+              </span>
             </p>
 
+            <!-- Use Transportation? -->
+            <p class="formRow">
+  <label class="formLabel">Use Transportation?</label>
+
+  <label>
+    <input
+      type="radio"
+      id="useTransportYes"
+      name="useTransport"
+      value="yes"
+      checked
+    >
+    Yes
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      id="useTransportNo"
+      name="useTransport"
+      value="no"
+    >
+    No
+  </label>
+</p>
+
+
+
+            <!-- From Governorate -->
+            <p class="formRow">
+              <label for="fromGovernorate" class="formLabel">From Governorate</label>
+              <select id="fromGovernorate" name="fromGovernorate" class="formInput" title="Starting governorate">
+                <option value="Cairo">Cairo</option>
+                <option value="Giza">Giza</option>
+                <option value="Alexandria">Alexandria</option>
+                <option value="Port Said">Port Said</option>
+                <option value="Suez">Suez</option>
+                <option value="Ismailia">Ismailia</option>
+                <option value="Sharqia">Sharqia</option>
+                <option value="Dakahlia">Dakahlia</option>
+                <option value="Gharbia">Gharbia</option>
+                <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                <option value="Beheira">Beheira</option>
+                <option value="Minya">Minya</option>
+                <option value="Assiut">Assiut</option>
+                <option value="Sohag">Sohag</option>
+                <option value="Qena">Qena</option>
+                <option value="Luxor">Luxor</option>
+                <option value="Aswan">Aswan</option>
+              </select>
+            </p>
+
+            <!-- Travel / Transportation (AUTO) -->
             <p class="formRow">
               <label for="transportCost" class="formLabel">Travel &amp; Transportation</label>
               <input
-                type="number"
                 id="transportCost"
                 name="transportCost"
                 class="formInput"
-                min="0"
-                step="1"
                 placeholder="0"
                 title="Transportation cost"
+                readonly
               >
             </p>
 
+            <!--  Accommodation package -->
             <p class="formRow">
-              <label for="materialsCost" class="formLabel">Books &amp; Workshop Materials</label>
-              <input
-                type="number"
-                id="materialsCost"
-                name="materialsCost"
-                class="formInput"
-                min="0"
-                step="1"
-                placeholder="0"
-                title="Materials cost"
-              >
+              <label for="foodCost" class="formLabel">Accommodation / Meals Package</label>
+              <select id="foodCost" name="foodCost" class="formInput" title="Accommodation package">
+                <option value="0">None (0$)</option>
+                <option value="2">Standard (2$)</option>
+                <option value="3">Premium (3$)</option>
+                <option value="6">Suite (6$)</option>
+              </select>
+              <small class="paragraphText">
+                Accommodation Total: <strong id="accommodationTotal">0</strong>
+              </small>
             </p>
 
+            <!-- Grand Total -->
             <p class="formRow">
-              <label for="foodCost" class="formLabel">Accommodation / Meals</label>
+              <label for="grandTotalField" class="formLabel">Total Price</label>
               <input
-                type="number"
-                id="foodCost"
-                name="foodCost"
+                type="text"
+                id="grandTotalField"
                 class="formInput"
-                min="0"
-                step="1"
-                placeholder="0"
-                title="Food cost"
+                value="$0.00"
+                readonly
+                title="Grand total"
               >
             </p>
           </fieldset>
@@ -143,29 +229,45 @@
             <legend id="guideLegend" class="legendText">Calculation Guide</legend>
 
             <ol id="guideSteps" class="numberList">
-             <li>List all individual expenses based on the event details page.</li>
-              <li>Sum the values to find your net total requirement.</li>
-              <li>Ensure your student portal funds cover the estimated total.</li>
+              <li>Enter the tickets count, transportation choice, and accommodation package.</li>
+              <li>Press Calculate to show your final total price.</li>
+              <li>Use the grand total to plan your budget.</li>
             </ol>
 
             <dl id="guideDefinitions" class="definitionList">
               <dt>Net Total</dt>
               <dd>The primary sum of all direct event-related expenses.</dd>
               <dt>Contingency Buffer</dt>
-              <dd>Recommended 15% extra for unplanned travel or material needs.</dd>
+              <dd>Recommended extra budget for unexpected needs.</dd>
               <dt>EduConnect Grant</dt>
-              <dd>Potential university subsidies available for approved workshops.</dd>
+              <dd>Potential university subsidies for approved workshops.</dd>
             </dl>
           </fieldset>
 
           <p id="formActions" class="buttonRow">
-            <button type="submit" id="submitBtn" class="actionBtn" title="Submit (placeholder)">Submit</button>
+            <button type="submit" id="submitBtn" class="actionBtn" title="Calculate budget">Calculate</button>
             <button type="reset" id="clearBtn" class="actionBtn" title="Clear fields">Clear</button>
           </p>
+
+          <!-- Results -->
+          <section id="budgetResults" class="fieldsetBox" aria-live="polite" hidden>
+            <h4 id="resultsTitle" class="legendText">Results</h4>
+            <p class="paragraphText">
+              <strong>Total Price: <span id="grandTotal">0</span></strong>
+            </p>
+            <p id="budgetError" class="paragraphText" aria-live="polite"></p>
+          </section>
         </form>
       </section>
 
-   
+      <aside id="tipAside" class="asideBox" aria-label="Budget tip">
+        <h3 id="tipTitle" class="sectionTitle">Tip</h3>
+        <ul id="tipList" class="simpleList">
+          <li>Early bird registration for EventsX workshops usually saves 20%.</li>
+          <li>Check the Student Dashboard for group travel discounts.</li>
+          <li>Save a digital copy of this estimate for your records.</li>
+        </ul>
+      </aside>
     </main>
     <!-- ========== END MAIN SECTION ========== -->
 
@@ -232,7 +334,7 @@
         </section>
       </div>
 
-      <div id="footerInfo" class="footerInfo">
+      <section id="footerInfo" class="footerInfo">
         <p id="copyrightText" class="footerText">&copy; 2025 EduConnect. All rights reserved.</p>
         <p id="updatedText" class="footerText">
           Last Updated:
@@ -240,10 +342,10 @@
             December 29, 2025
           </time>
         </p>
-      </div>
+      </section>
     </footer>
     <!-- ========== END FOOTER ========= -->
-    <script src="scripts/validation.js"></script>
-    <script src="scripts/common.js"></script>
+
+    <script src="../scripts/budget-calculator.js" defer></script>
   </body>
 </html>
