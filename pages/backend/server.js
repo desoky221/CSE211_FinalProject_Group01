@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.json({ limit: '10mb' })); // Parse JSON bodies (increased limit for base64 images)
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Parse URL-encoded bodies
 app.use(cookieParser()); // Parse cookies
 
 // CORS middleware - Allow requests from frontend

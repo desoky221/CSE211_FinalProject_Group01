@@ -27,6 +27,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    birthday: {
+        type: Date
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'other', '']
+    },
+    phoneNumber: {
+        type: String,
+        trim: true
+    },
+    profilePicture: {
+        type: String,
+        default: ''
+    },
     enrolledEvents: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'

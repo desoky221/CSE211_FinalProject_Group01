@@ -135,12 +135,18 @@ window.addEventListener('DOMContentLoaded', function() {
   
   // ========== MODAL FUNCTIONS ==========
   function openModal() {
+    const token = getAuthToken();
+    if (!token || !isAdmin()) {
+      alert('Please login as admin to add events');
+      window.location.href = 'login.html';
+      return;
+    }
     if (addEventModal) {
       addEventModal.classList.add('show');
       document.body.style.overflow = 'hidden';
     }
   }
-  
+
   function closeModal() {
     if (addEventModal) {
       addEventModal.classList.remove('show');
@@ -290,9 +296,14 @@ window.addEventListener('DOMContentLoaded', function() {
       
       var costDisplay = event.cost === 0 || event.cost === null ? 'Free' : '$' + event.cost;
       
-      // Create action cell based on role
+      // Create action cell based on role and authentication
       var actionCell = '';
-      if (isAdmin()) {
+      var currentUser = getCurrentUser();
+      
+      if (!currentUser) {
+        // Not logged in - show disabled button with login prompt
+        actionCell = '<td><button type="button" class="enroll-btn" disabled title="Please login to enroll">Login to Enroll</button></td>';
+      } else if (isAdmin()) {
         // Admin sees nothing (or could add edit/delete later)
         actionCell = '<td></td>';
       } else {

@@ -135,3 +135,53 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
+// Update user profile
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { name, birthday, gender, phoneNumber, profilePicture } = req.body;
+
+    const updateData = {};
+    if (name !== undefined && name !== null) updateData.name = name;
+    if (birthday !== undefined && birthday !== null && birthday !== '') {
+      updateData.birthday = new Date(birthday);
+    } else if (birthday === null || birthday === '') {
+      updateData.birthday = null;
+    }
+    if (gender !== undefined) {
+      updateData.gender = gender === '' ? null : gender;
+    }
+    if (phoneNumber !== undefined) {
+      updateData.phoneNumber = phoneNumber === '' ? null : phoneNumber;
+    }
+    if (profilePicture !== undefined) {
+      updateData.profilePicture = profilePicture === '' ? null : profilePicture;
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Profile updated successfully',
+      data: user
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating profile',
+      error: error.message
+    });
+  }
+};
+

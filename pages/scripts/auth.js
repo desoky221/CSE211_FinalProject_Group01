@@ -28,6 +28,12 @@ function clearAuth() {
   localStorage.removeItem('currentUser');
 }
 
+// Sign out function
+function signOut() {
+  clearAuth();
+  window.location.href = 'login.html';
+}
+
 // Check if user is authenticated
 function isAuthenticated() {
   return !!getAuthToken();
