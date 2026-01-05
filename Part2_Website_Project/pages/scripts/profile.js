@@ -1,24 +1,49 @@
-// Profile Script - Handles profile editing and updates
-const API_URL = 'http://localhost:3000/api';
-const AUTH_API_URL = `${API_URL}/auth`;
+/**
+ * Profile Management Module
+ * Handles user profile editing and updates
+ * 
+ * Responsibilities:
+ * - Load and display user profile data
+ * - Handle profile picture upload
+ * - Update profile information via API
+ */
 
-// Get auth token
+const API_BASE_URL = 'http://localhost:3000/api';
+const AUTH_API_URL = `${API_BASE_URL}/auth`;
+
+// ============================================================================
+// Authentication Module (Single Responsibility: auth operations)
+// ============================================================================
+
+/**
+ * Retrieves authentication token from localStorage
+ * @returns {string|null} Authentication token
+ */
 function getAuthToken() {
   return localStorage.getItem('authToken');
 }
 
-// Get current user
+/**
+ * Retrieves current user from localStorage
+ * @returns {Object|null} User object
+ */
 function getCurrentUser() {
   const userStr = localStorage.getItem('currentUser');
   return userStr ? JSON.parse(userStr) : null;
 }
 
-// Set current user
+/**
+ * Stores current user in localStorage
+ * @param {Object} user - User object to store
+ */
 function setCurrentUser(user) {
   localStorage.setItem('currentUser', JSON.stringify(user));
 }
 
-// Get auth headers
+/**
+ * Generates authentication headers for API requests
+ * @returns {Object} Headers object
+ */
 function getAuthHeaders() {
   const token = getAuthToken();
   return {
@@ -27,7 +52,10 @@ function getAuthHeaders() {
   };
 }
 
-// Check authentication
+/**
+ * Checks if user is authenticated, redirects to login if not
+ * @returns {boolean} True if authenticated
+ */
 function checkAuth() {
   const token = getAuthToken();
   if (!token) {
@@ -37,18 +65,81 @@ function checkAuth() {
   return true;
 }
 
-// Format date for input field (YYYY-MM-DD)
+// ============================================================================
+// Date Formatting Module (Single Responsibility: date operations)
+// ============================================================================
+
+/**
+ * Formats date for input field (YYYY-MM-DD)
+ * @param {string|Date} dateString - Date string or Date object
+ * @returns {string} Formatted date string or empty string
+ */
 function formatDateForInput(dateString) {
   if (!dateString) return '';
+  
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return '';
+  
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
+  
   return `${year}-${month}-${day}`;
 }
 
-// Load user profile data
+// ============================================================================
+// Profile Data Loading Module (Single Responsibility: data fetching)
+// ============================================================================
+
+/**
+ * Handles authentication errors
+ * @param {number} status - HTTP status code
+ */
+function handleAuthError(status) {
+  if (status === 401) {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+  }
+}
+
+/**
+ * Populates form fields with user data
+ * @param {Object} user - User object
+ */
+function populateFormFields(user) {
+  const nameInput = document.getElementById('profileName');
+  const emailInput = document.getElementById('profileEmail');
+  const birthdayInput = document.getElementById('profileBirthday');
+  const genderInput = document.getElementById('profileGender');
+  const phoneInput = document.getElementById('profilePhone');
+  
+  if (nameInput) nameInput.value = user.name || '';
+  if (emailInput) emailInput.value = user.email || '';
+  if (birthdayInput) birthdayInput.value = formatDateForInput(user.birthday);
+  if (genderInput) genderInput.value = user.gender || '';
+  if (phoneInput) phoneInput.value = user.phoneNumber || '';
+}
+
+/**
+ * Updates profile picture preview
+ * @param {string} imageUrl - Image URL or base64 string
+ */
+function updateProfilePicturePreview(imageUrl) {
+  const profilePicturePreview = document.getElementById('profilePicturePreview');
+  if (!profilePicturePreview) return;
+  
+  if (imageUrl) {
+    profilePicturePreview.src = imageUrl;
+    profilePicturePreview.style.display = 'block';
+  } else {
+    profilePicturePreview.style.display = 'none';
+  }
+}
+
+/**
+ * Loads user profile data from API
+ */
 async function loadProfile() {
   if (!checkAuth()) return;
 
@@ -61,130 +152,135 @@ async function loadProfile() {
       const result = await response.json();
       if (result.success) {
         const user = result.data;
-        
-        // Populate form fields
-        document.getElementById('profileName').value = user.name || '';
-        document.getElementById('profileEmail').value = user.email || '';
-        document.getElementById('profileBirthday').value = formatDateForInput(user.birthday);
-        document.getElementById('profileGender').value = user.gender || '';
-        document.getElementById('profilePhone').value = user.phoneNumber || '';
-        
-        // Set profile picture
-        const profilePicturePreview = document.getElementById('profilePicturePreview');
-        if (user.profilePicture) {
-          profilePicturePreview.src = user.profilePicture;
-          profilePicturePreview.style.display = 'block';
-        } else {
-          // Show initials or default
-          profilePicturePreview.style.display = 'none';
-        }
+        populateFormFields(user);
+        updateProfilePicturePreview(user.profilePicture);
       }
-    } else if (response.status === 401) {
-      // Token expired
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('currentUser');
-      window.location.href = 'login.html';
+    } else {
+      handleAuthError(response.status);
     }
   } catch (error) {
     console.error('Error loading profile:', error);
   }
 }
 
-// Handle profile picture upload
+// ============================================================================
+// File Handling Module (Single Responsibility: file operations)
+// ============================================================================
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+/**
+ * Validates uploaded file
+ * @param {File} file - File object to validate
+ * @returns {string|null} Error message or null if valid
+ */
+function validateFile(file) {
+  if (!file.type.startsWith('image/')) {
+    return 'Please select an image file';
+  }
+  
+  if (file.size > MAX_FILE_SIZE) {
+    return 'Image size should be less than 5MB';
+  }
+  
+  return null;
+}
+
+/**
+ * Converts image file to base64 string
+ * @param {File} file - Image file to convert
+ * @returns {Promise<string>} Base64 string
+ */
+function imageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = (error) => reject(error);
+    
+    reader.readAsDataURL(file);
+  });
+}
+
+/**
+ * Sets up profile picture upload functionality
+ */
 function setupProfilePictureUpload() {
   const profilePictureInput = document.getElementById('profilePictureInput');
   const profilePicturePreview = document.getElementById('profilePicturePreview');
   
-  profilePictureInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        alert('Please select an image file');
-        return;
-      }
-      
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Image size should be less than 5MB');
-        return;
-      }
-      
-      // Preview image
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        profilePicturePreview.src = e.target.result;
-        profilePicturePreview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-}
-
-// Convert image to base64 for storage
-function imageToBase64(file, callback) {
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    callback(e.target.result);
-  };
-  reader.onerror = function(error) {
-    console.error('Error reading file:', error);
-    callback(null);
-  };
-  reader.readAsDataURL(file);
-}
-
-// Handle form submission
-function setupFormSubmission() {
-  const profileForm = document.getElementById('profileForm');
-  const profileMessage = document.getElementById('profileMessage');
-  const saveProfileBtn = document.getElementById('saveProfileBtn');
-  const profilePictureInput = document.getElementById('profilePictureInput');
+  if (!profilePictureInput || !profilePicturePreview) return;
   
-  profileForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
+  profilePictureInput.addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
     
-    const originalText = saveProfileBtn.innerHTML;
-    saveProfileBtn.disabled = true;
-    saveProfileBtn.innerHTML = 'Saving...';
-    profileMessage.style.display = 'none';
+    const validationError = validateFile(file);
+    if (validationError) {
+      alert(validationError);
+      return;
+    }
     
     try {
-      const formData = {
-        name: document.getElementById('profileName').value.trim(),
-        birthday: document.getElementById('profileBirthday').value || null,
-        gender: document.getElementById('profileGender').value || null,
-        phoneNumber: document.getElementById('profilePhone').value.trim() || null
-      };
-      
-      // Handle profile picture if changed
-      if (profilePictureInput.files.length > 0) {
-        const file = profilePictureInput.files[0];
-        imageToBase64(file, function(base64String) {
-          if (base64String) {
-            formData.profilePicture = base64String;
-            updateProfile(formData, profileMessage, saveProfileBtn, originalText);
-          } else {
-            showMessage(profileMessage, 'Error reading profile picture', 'error');
-            saveProfileBtn.disabled = false;
-            saveProfileBtn.innerHTML = originalText;
-          }
-        });
-      } else {
-        // No new picture, just update other fields
-        updateProfile(formData, profileMessage, saveProfileBtn, originalText);
-      }
+      const base64String = await imageToBase64(file);
+      updateProfilePicturePreview(base64String);
     } catch (error) {
-      console.error('Error submitting form:', error);
-      showMessage(profileMessage, 'An error occurred. Please try again.', 'error');
-      saveProfileBtn.disabled = false;
-      saveProfileBtn.innerHTML = originalText;
+      console.error('Error reading file:', error);
+      alert('Error reading image file');
     }
   });
 }
 
-// Update profile via API
-async function updateProfile(formData, messageDiv, submitBtn, originalText) {
+// ============================================================================
+// Form Submission Module (Single Responsibility: form handling)
+// ============================================================================
+
+/**
+ * Extracts form data from profile form
+ * @returns {Object} Form data object
+ */
+function extractFormData() {
+  return {
+    name: document.getElementById('profileName').value.trim(),
+    birthday: document.getElementById('profileBirthday').value || null,
+    gender: document.getElementById('profileGender').value || null,
+    phoneNumber: document.getElementById('profilePhone').value.trim() || null
+  };
+}
+
+/**
+ * Updates submit button state
+ * @param {HTMLElement} button - Submit button element
+ * @param {boolean} isProcessing - Whether form is being processed
+ * @param {string} processingText - Text to show during processing
+ * @param {string} defaultText - Default button text
+ */
+function updateSubmitButtonState(button, isProcessing, processingText, defaultText) {
+  button.disabled = isProcessing;
+  button.innerHTML = isProcessing ? processingText : defaultText;
+}
+
+/**
+ * Displays message to user
+ * @param {HTMLElement} messageDiv - Message container element
+ * @param {string} message - Message text
+ * @param {string} type - Message type ('success' or 'error')
+ */
+function showMessage(messageDiv, message, type) {
+  messageDiv.textContent = message;
+  messageDiv.className = `form-message ${type}`;
+  messageDiv.style.display = 'block';
+  messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/**
+ * Updates profile via API
+ * @param {Object} formData - Form data object
+ * @param {HTMLElement} messageDiv - Message container element
+ * @param {HTMLElement} submitButton - Submit button element
+ * @param {string} originalButtonText - Original button text
+ */
+async function updateProfile(formData, messageDiv, submitButton, originalButtonText) {
   try {
     const response = await fetch(`${AUTH_API_URL}/profile`, {
       method: 'PUT',
@@ -210,35 +306,76 @@ async function updateProfile(formData, messageDiv, submitBtn, originalText) {
       }
       
       showMessage(messageDiv, 'Profile updated successfully!', 'success');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+      updateSubmitButtonState(submitButton, false, 'Saving...', originalButtonText);
     } else {
       showMessage(messageDiv, result.message || 'Failed to update profile', 'error');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+      updateSubmitButtonState(submitButton, false, 'Saving...', originalButtonText);
     }
   } catch (error) {
     console.error('Error updating profile:', error);
     showMessage(messageDiv, 'Failed to connect to server. Please try again.', 'error');
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = originalText;
+    updateSubmitButtonState(submitButton, false, 'Saving...', originalButtonText);
   }
 }
 
-// Show message
-function showMessage(messageDiv, message, type) {
-  messageDiv.textContent = message;
-  messageDiv.className = `form-message ${type}`;
-  messageDiv.style.display = 'block';
+/**
+ * Sets up profile form submission
+ */
+function setupFormSubmission() {
+  const profileForm = document.getElementById('profileForm');
+  const profileMessage = document.getElementById('profileMessage');
+  const saveProfileBtn = document.getElementById('saveProfileBtn');
+  const profilePictureInput = document.getElementById('profilePictureInput');
   
-  // Scroll to message
-  messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (!profileForm || !profileMessage || !saveProfileBtn) return;
+  
+  profileForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const originalButtonText = saveProfileBtn.innerHTML;
+    updateSubmitButtonState(saveProfileBtn, true, 'Saving...', originalButtonText);
+    profileMessage.style.display = 'none';
+    
+    try {
+      const formData = extractFormData();
+      
+      // Handle profile picture if changed
+      if (profilePictureInput && profilePictureInput.files.length > 0) {
+        const file = profilePictureInput.files[0];
+        const validationError = validateFile(file);
+        
+        if (validationError) {
+          showMessage(profileMessage, validationError, 'error');
+          updateSubmitButtonState(saveProfileBtn, false, 'Saving...', originalButtonText);
+          return;
+        }
+        
+        try {
+          const base64String = await imageToBase64(file);
+          formData.profilePicture = base64String;
+          await updateProfile(formData, profileMessage, saveProfileBtn, originalButtonText);
+        } catch (error) {
+          showMessage(profileMessage, 'Error reading profile picture', 'error');
+          updateSubmitButtonState(saveProfileBtn, false, 'Saving...', originalButtonText);
+        }
+      } else {
+        // No new picture, just update other fields
+        await updateProfile(formData, profileMessage, saveProfileBtn, originalButtonText);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      showMessage(profileMessage, 'An error occurred. Please try again.', 'error');
+      updateSubmitButtonState(saveProfileBtn, false, 'Saving...', originalButtonText);
+    }
+  });
 }
 
-// Initialize profile page
-window.addEventListener('DOMContentLoaded', function() {
+// ============================================================================
+// Module Initialization
+// ============================================================================
+
+window.addEventListener('DOMContentLoaded', () => {
   loadProfile();
   setupProfilePictureUpload();
   setupFormSubmission();
 });
-

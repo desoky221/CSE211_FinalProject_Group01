@@ -370,13 +370,11 @@ JavaScript code follows ES6+ standards and is validated using ESLint.
 
 ## Team Members
 
-**Group 01**
-youssef ahmed ibrahim 223101109
-Ibrahim Hassan 223104567
-George Karm Hosney Fayz 223106365
-AbdallahMostafaMahdy 223104683
-
-
+**Group 00**
+- [Team Member 1 Name] - [ID]
+- [Team Member 2 Name] - [ID]
+- [Team Member 3 Name] - [ID]
+- [Team Member 4 Name] - [ID]
 
 ### Responsibilities
 - All team members contributed to coding, report integration, quality check, and code submission.

@@ -1,47 +1,76 @@
-// Authentication helper functions
+/**
+ * Authentication Module
+ * Handles user authentication, form submissions, and password visibility toggling
+ */
+
 const API_URL = 'http://localhost:3000/api/auth';
 
-// Store token in localStorage
+// ============================================================================
+// Authentication Storage Module (Single Responsibility: localStorage operations)
+// ============================================================================
+
+/**
+ * Stores authentication token in localStorage
+ * @param {string} token - JWT authentication token
+ */
 function setAuthToken(token) {
   localStorage.setItem('authToken', token);
 }
 
-// Get token from localStorage
+/**
+ * Retrieves authentication token from localStorage
+ * @returns {string|null} Authentication token or null if not found
+ */
 function getAuthToken() {
   return localStorage.getItem('authToken');
 }
 
-// Get current user info
+/**
+ * Retrieves current user data from localStorage
+ * @returns {Object|null} User object or null if not found
+ */
 function getCurrentUser() {
   const userStr = localStorage.getItem('currentUser');
   return userStr ? JSON.parse(userStr) : null;
 }
 
-// Set current user info
+/**
+ * Stores current user data in localStorage
+ * @param {Object} user - User object to store
+ */
 function setCurrentUser(user) {
   localStorage.setItem('currentUser', JSON.stringify(user));
 }
 
-// Clear auth data
+/**
+ * Clears all authentication data from localStorage
+ */
 function clearAuth() {
   localStorage.removeItem('authToken');
   localStorage.removeItem('currentUser');
 }
 
-
-
-// Check if user is authenticated
+/**
+ * Checks if user is currently authenticated
+ * @returns {boolean} True if user has valid token
+ */
 function isAuthenticated() {
   return !!getAuthToken();
 }
 
-// Check if user is admin
+/**
+ * Checks if current user has admin role
+ * @returns {boolean} True if user is admin
+ */
 function isAdmin() {
   const user = getCurrentUser();
   return user && user.role === 'admin';
 }
 
-// Get auth headers for API requests
+/**
+ * Generates authentication headers for API requests
+ * @returns {Object} Headers object with Content-Type and Authorization
+ */
 function getAuthHeaders() {
   const token = getAuthToken();
   return {
@@ -50,270 +79,402 @@ function getAuthHeaders() {
   };
 }
 
-// Password toggle functionality
+// ============================================================================
+// Password Toggle UI Module (Single Responsibility: password visibility)
+// ============================================================================
+
+/**
+ * Toggles password input visibility and updates icon
+ * @param {HTMLInputElement} passwordInput - Password input element
+ * @param {HTMLElement} toggleButton - Toggle button element
+ */
+function togglePasswordVisibility(passwordInput, toggleButton) {
+  const isCurrentlyPassword = passwordInput.getAttribute('type') === 'password';
+  const newType = isCurrentlyPassword ? 'text' : 'password';
+  
+  passwordInput.setAttribute('type', newType);
+  
+  if (newType === 'text') {
+    passwordInput.classList.add('password-visible');
+  } else {
+    passwordInput.classList.remove('password-visible');
+  }
+  
+  const eyeIcon = toggleButton.querySelector('.eye-icon');
+  if (eyeIcon) {
+    eyeIcon.textContent = newType === 'text' ? '🙈' : '👁️';
+  }
+}
+
+/**
+ * Initializes password toggle functionality for a specific input
+ * @param {string} inputId - ID of password input element
+ * @param {string} toggleId - ID of toggle button element
+ */
+function initializePasswordToggle(inputId, toggleId) {
+  const passwordInput = document.getElementById(inputId);
+  const toggleButton = document.getElementById(toggleId);
+  
+  if (passwordInput && toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      togglePasswordVisibility(passwordInput, toggleButton);
+    });
+  }
+}
+
+/**
+ * Initializes all password toggle functionality on page load
+ */
 function initPasswordToggle() {
-  // Login page password toggle
-  const loginPasswordInput = document.getElementById('loginPassword');
-  const loginPasswordToggle = document.getElementById('loginPasswordToggle');
-  
-  if (loginPasswordInput && loginPasswordToggle) {
-    loginPasswordToggle.addEventListener('click', function() {
-      const type = loginPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      loginPasswordInput.setAttribute('type', type);
-      
-      // Add class for CSS targeting
-      if (type === 'text') {
-        loginPasswordInput.classList.add('password-visible');
-      } else {
-        loginPasswordInput.classList.remove('password-visible');
-      }
-      
-      // Update eye icon
-      const eyeIcon = loginPasswordToggle.querySelector('.eye-icon');
-      if (type === 'text') {
-        eyeIcon.textContent = '🙈'; // Closed eye when visible
-      } else {
-        eyeIcon.textContent = '👁️'; // Open eye when hidden
-      }
-    });
-  }
-  
-  // Registration page password toggle
-  const registrationPasswordInput = document.getElementById('registrationPassword');
-  const registrationPasswordToggle = document.getElementById('registrationPasswordToggle');
-  
-  if (registrationPasswordInput && registrationPasswordToggle) {
-    registrationPasswordToggle.addEventListener('click', function() {
-      const type = registrationPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      registrationPasswordInput.setAttribute('type', type);
-      
-      // Add class for CSS targeting
-      if (type === 'text') {
-        registrationPasswordInput.classList.add('password-visible');
-      } else {
-        registrationPasswordInput.classList.remove('password-visible');
-      }
-      
-      // Update eye icon
-      const eyeIcon = registrationPasswordToggle.querySelector('.eye-icon');
-      if (type === 'text') {
-        eyeIcon.textContent = '🙈'; // Closed eye when visible
-      } else {
-        eyeIcon.textContent = '👁️'; // Open eye when hidden
-      }
-    });
+  initializePasswordToggle('loginPassword', 'loginPasswordToggle');
+  initializePasswordToggle('registrationPassword', 'registrationPasswordToggle');
+}
+
+// ============================================================================
+// Form UI Helper Module (Single Responsibility: form state management)
+// ============================================================================
+
+/**
+ * Updates submit button state during form processing
+ * @param {HTMLButtonElement} button - Submit button element
+ * @param {boolean} isProcessing - Whether form is being processed
+ * @param {string} processingText - Text to show during processing
+ * @param {string} defaultText - Default button text
+ * @param {boolean} useInnerHTML - Whether to use innerHTML instead of textContent
+ */
+function updateSubmitButtonState(button, isProcessing, processingText, defaultText, useInnerHTML = false) {
+  button.disabled = isProcessing;
+  if (useInnerHTML) {
+    button.innerHTML = isProcessing ? processingText : defaultText;
+  } else {
+    button.textContent = isProcessing ? processingText : defaultText;
   }
 }
 
-// Initialize password toggle when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initPasswordToggle);
-} else {
-  initPasswordToggle();
+/**
+ * Displays a message in the form message container
+ * @param {HTMLElement} messageContainer - Message container element
+ * @param {string} message - Message text to display
+ * @param {string} type - Message type: 'success' or 'error'
+ */
+function displayFormMessage(messageContainer, message, type) {
+  messageContainer.className = `form-message ${type}`;
+  messageContainer.textContent = message;
+  messageContainer.style.display = 'block';
 }
 
-// Handle login form submission
-if (document.getElementById('loginForm')) {
-  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+/**
+ * Hides the form message container
+ * @param {HTMLElement} messageContainer - Message container element
+ */
+function hideFormMessage(messageContainer) {
+  messageContainer.style.display = 'none';
+}
+
+/**
+ * Ensures message container exists, creates if missing
+ * @param {HTMLElement} form - Form element
+ * @param {string} containerId - ID of message container
+ * @param {HTMLElement} insertBefore - Element to insert before
+ * @returns {HTMLElement} Message container element
+ */
+function ensureMessageContainer(form, containerId, insertBefore) {
+  let messageContainer = document.getElementById(containerId);
+  if (!messageContainer) {
+    messageContainer = document.createElement('div');
+    messageContainer.id = containerId;
+    messageContainer.className = 'form-message';
+    form.insertBefore(messageContainer, insertBefore);
+  }
+  return messageContainer;
+}
+
+// ============================================================================
+// API Communication Module (Single Responsibility: HTTP requests)
+// ============================================================================
+
+/**
+ * Handles API response errors
+ * @param {Response} response - Fetch API response object
+ * @returns {Promise<Object>} Error data object
+ */
+async function handleApiError(response) {
+  try {
+    const errorData = await response.json();
+    return { message: errorData.message || `HTTP error! status: ${response.status}` };
+  } catch {
+    return { message: 'Network error' };
+  }
+}
+
+/**
+ * Makes login API request
+ * @param {string} email - User email
+ * @param {string} password - User password
+ * @returns {Promise<Object>} API response data
+ */
+async function loginUser(email, password) {
+  const response = await fetch(`${API_URL}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  });
+  
+  if (!response.ok) {
+    const errorData = await handleApiError(response);
+    throw new Error(errorData.message);
+  }
+  
+  return await response.json();
+}
+
+/**
+ * Makes registration API request
+ * @param {Object} formData - Registration form data
+ * @returns {Promise<Object>} API response data
+ */
+async function registerUser(formData) {
+  const response = await fetch(`${API_URL}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  });
+  
+  return await response.json();
+}
+
+// ============================================================================
+// Navigation Module (Single Responsibility: redirects)
+// ============================================================================
+
+/**
+ * Determines redirect path based on user role
+ * @param {string} userRole - User role ('admin' or 'student')
+ * @returns {string} Redirect path
+ */
+function getRedirectPathByRole(userRole) {
+  return userRole === 'admin' ? 'events.html' : 'student-dashboard.html';
+}
+
+/**
+ * Redirects user after successful authentication
+ * @param {string} userRole - User role
+ * @param {number} delay - Delay in milliseconds before redirect
+ */
+function redirectAfterAuth(userRole, delay = 1000) {
+  setTimeout(() => {
+    const redirectPath = getRedirectPathByRole(userRole);
+    window.location.href = redirectPath;
+  }, delay);
+}
+
+// ============================================================================
+// Form Validation Module (Single Responsibility: input validation)
+// ============================================================================
+
+/**
+ * Validates email format
+ * @param {string} email - Email address to validate
+ * @returns {boolean} True if email is valid
+ */
+function isValidEmail(email) {
+  return email && email.includes('@') && email.includes('.');
+}
+
+/**
+ * Validates registration form data
+ * @param {Object} formData - Form data object
+ * @param {HTMLInputElement} passwordInput - Password input element
+ * @param {HTMLInputElement} termsCheckbox - Terms checkbox element
+ * @returns {string|null} Error message or null if valid
+ */
+function validateRegistrationForm(formData, passwordInput, termsCheckbox) {
+  if (!formData.name || formData.name.trim() === '') {
+    return 'Please enter your Full Name.';
+  }
+  
+  if (!isValidEmail(formData.email)) {
+    return 'Please enter a valid Email Address.';
+  }
+  
+  if (!passwordInput || !formData.password || formData.password.trim() === '') {
+    return 'Password is required';
+  }
+  
+  if (typeof validatePasswordStrength === 'function') {
+    const passwordError = validatePasswordStrength(formData.password);
+    if (passwordError) {
+      return passwordError;
+    }
+  }
+  
+  if (!formData.governorate || formData.governorate === '') {
+    return 'Please select your Governorate.';
+  }
+  
+  if (!termsCheckbox || !termsCheckbox.checked) {
+    return 'You must accept the Terms and Privacy Policy.';
+  }
+  
+  return null;
+}
+
+// ============================================================================
+// Form Submission Handlers (Single Responsibility: form event handling)
+// ============================================================================
+
+/**
+ * Handles successful login response
+ * @param {Object} result - API response result
+ * @param {HTMLElement} messageContainer - Message container element
+ */
+function handleLoginSuccess(result, messageContainer) {
+  setAuthToken(result.data.token);
+  setCurrentUser(result.data.user);
+  
+  const userRole = result.data.user?.role || getCurrentUser()?.role;
+  displayFormMessage(messageContainer, 'Login successful! Redirecting...', 'success');
+  redirectAfterAuth(userRole);
+}
+
+/**
+ * Handles login form submission
+ */
+function initLoginForm() {
+  const loginForm = document.getElementById('loginForm');
+  if (!loginForm) return;
+  
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-    const messageDiv = document.getElementById('loginMessage');
-    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const messageContainer = document.getElementById('loginMessage');
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const defaultButtonText = submitButton.textContent;
     
-    // Disable button
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Signing in...';
-    messageDiv.style.display = 'none';
+    hideFormMessage(messageContainer);
+    updateSubmitButtonState(submitButton, true, 'Signing in...', defaultButtonText);
     
     try {
-      const response = await fetch(`${API_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-      
-      // Check if response is ok
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Network error' }));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      console.log('API Response:', result);
+      const result = await loginUser(email, password);
       
       if (result.success) {
-        // Store token and user info
-        setAuthToken(result.data.token);
-        setCurrentUser(result.data.user);
-        
-        // Debug logging
-        console.log('Login successful:', result.data.user);
-        console.log('User role:', result.data.user.role);
-        console.log('Full result:', result);
-        
-        // Show success message
-        messageDiv.className = 'form-message success';
-        messageDiv.textContent = 'Login successful! Redirecting...';
-        messageDiv.style.display = 'block';
-        
-        // Redirect based on role (check both result.data.user.role and stored user)
-        setTimeout(() => {
-          const userRole = result.data.user?.role || getCurrentUser()?.role;
-          console.log('Redirecting - Role:', userRole);
-          
-          if (userRole === 'admin') {
-            console.log('Redirecting admin to events.html');
-            window.location.href = 'events.html';
-          } else {
-            console.log('Redirecting student to student-dashboard.html');
-            window.location.href = 'student-dashboard.html';
-          }
-        }, 1000);
+        handleLoginSuccess(result, messageContainer);
       } else {
-        messageDiv.className = 'form-message error';
-        messageDiv.textContent = result.message || 'Login failed. Please check your credentials.';
-        messageDiv.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign In →';
+        displayFormMessage(messageContainer, result.message || 'Login failed. Please check your credentials.', 'error');
+        updateSubmitButtonState(submitButton, false, 'Signing in...', defaultButtonText);
       }
     } catch (error) {
-      console.error('Login error:', error);
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Failed to connect to server. Please try again.';
-      messageDiv.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Sign In →';
+      displayFormMessage(messageContainer, error.message || 'Failed to connect to server. Please try again.', 'error');
+      updateSubmitButtonState(submitButton, false, 'Signing in...', defaultButtonText);
     }
   });
 }
 
-// Handle signup form submission (registration.html)
-if (document.getElementById('registrationForm')) {
-  document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+/**
+ * Extracts form data from registration form
+ * @returns {Object} Form data object
+ */
+function extractRegistrationFormData() {
+  const nameInput = document.querySelector('input[type="text"]');
+  const emailInput = document.querySelector('input[type="email"]');
+  const passwordInput = document.getElementById('registrationPassword');
+  const governorateSelect = document.querySelector('select[name="governorate"]');
+  
+  return {
+    name: nameInput ? nameInput.value.trim() : '',
+    email: emailInput ? emailInput.value.trim() : '',
+    password: passwordInput ? passwordInput.value : '',
+    governorate: governorateSelect ? governorateSelect.value : ''
+  };
+}
+
+/**
+ * Handles successful registration response
+ * @param {Object} result - API response result
+ * @param {HTMLElement} messageContainer - Message container element
+ */
+function handleRegistrationSuccess(result, messageContainer) {
+  setAuthToken(result.data.token);
+  setCurrentUser(result.data.user);
+  
+  displayFormMessage(messageContainer, 'Account created successfully! Redirecting...', 'success');
+  redirectAfterAuth('student', 1000);
+}
+
+/**
+ * Handles registration form submission
+ */
+function initRegistrationForm() {
+  const registrationForm = document.getElementById('registrationForm');
+  if (!registrationForm) return;
+  
+  registrationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Get form elements - use ID for password to handle type toggle (password can be type="text" when visible)
-    const nameInput = document.querySelector('input[type="text"]');
-    const emailInput = document.querySelector('input[type="email"]');
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const defaultButtonText = submitButton.innerHTML;
     const passwordInput = document.getElementById('registrationPassword');
-    const governorateSelect = document.querySelector('select[name="governorate"]');
     const termsCheckbox = document.getElementById('acceptTerms');
     
-    const formData = {
-      name: nameInput ? nameInput.value.trim() : '',
-      email: emailInput ? emailInput.value.trim() : '',
-      password: passwordInput ? passwordInput.value : '',
-      governorate: governorateSelect ? governorateSelect.value : ''
-    };
+    const formData = extractRegistrationFormData();
+    const messageContainer = ensureMessageContainer(
+      registrationForm,
+      'signupMessage',
+      submitButton
+    );
     
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+    hideFormMessage(messageContainer);
     
-    // Create message div if it doesn't exist
-    let messageDiv = document.getElementById('signupMessage');
-    if (!messageDiv) {
-      messageDiv = document.createElement('div');
-      messageDiv.id = 'signupMessage';
-      messageDiv.className = 'form-message';
-      e.target.insertBefore(messageDiv, submitBtn);
-    }
-    messageDiv.style.display = 'none';
-    
-    // Client-side validation
-    if (!formData.name || formData.name.trim() === '') {
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Please enter your Full Name.';
-      messageDiv.style.display = 'block';
+    const validationError = validateRegistrationForm(formData, passwordInput, termsCheckbox);
+    if (validationError) {
+      displayFormMessage(messageContainer, validationError, 'error');
       return;
     }
     
-    if (!formData.email || !formData.email.includes('@') || !formData.email.includes('.')) {
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Please enter a valid Email Address.';
-      messageDiv.style.display = 'block';
-      return;
-    }
-    
-    // Validate password
-    if (!passwordInput || !formData.password || formData.password.trim() === '') {
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Password is required';
-      messageDiv.style.display = 'block';
-      return;
-    }
-    
-    // Validate password strength using the function from registration.js
-    if (typeof validatePasswordStrength === 'function') {
-      const passwordError = validatePasswordStrength(formData.password);
-      if (passwordError) {
-        messageDiv.className = 'form-message error';
-        messageDiv.textContent = passwordError;
-        messageDiv.style.display = 'block';
-        return;
-      }
-    }
-    
-    if (!formData.governorate || formData.governorate === '') {
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Please select your Governorate.';
-      messageDiv.style.display = 'block';
-      return;
-    }
-    
-    if (!termsCheckbox || !termsCheckbox.checked) {
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'You must accept the Terms and Privacy Policy.';
-      messageDiv.style.display = 'block';
-      return;
-    }
-    
-    // Disable button
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Creating account...';
+    updateSubmitButtonState(submitButton, true, 'Creating account...', defaultButtonText, true);
     
     try {
-      const response = await fetch(`${API_URL}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      const result = await response.json();
+      const result = await registerUser(formData);
       
       if (result.success) {
-        // Store token and user info
-        setAuthToken(result.data.token);
-        setCurrentUser(result.data.user);
-        
-        messageDiv.className = 'form-message success';
-        messageDiv.textContent = 'Account created successfully! Redirecting...';
-        messageDiv.style.display = 'block';
-        
-        // Redirect to dashboard
-        setTimeout(() => {
-          window.location.href = 'student-dashboard.html';
-        }, 1000);
+        handleRegistrationSuccess(result, messageContainer);
       } else {
-        messageDiv.className = 'form-message error';
-        messageDiv.textContent = result.message || 'Registration failed. Please try again.';
-        messageDiv.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+        displayFormMessage(messageContainer, result.message || 'Registration failed. Please try again.', 'error');
+        updateSubmitButtonState(submitButton, false, 'Creating account...', defaultButtonText, true);
       }
     } catch (error) {
-      console.error('Registration error:', error);
-      messageDiv.className = 'form-message error';
-      messageDiv.textContent = 'Failed to connect to server. Please try again.';
-      messageDiv.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
+      displayFormMessage(messageContainer, 'Failed to connect to server. Please try again.', 'error');
+      updateSubmitButtonState(submitButton, false, 'Creating account...', defaultButtonText, true);
     }
   });
 }
 
+// ============================================================================
+// Module Initialization
+// ============================================================================
+
+/**
+ * Initializes all authentication-related functionality
+ */
+function initializeAuthModule() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initPasswordToggle();
+      initLoginForm();
+      initRegistrationForm();
+    });
+  } else {
+    initPasswordToggle();
+    initLoginForm();
+    initRegistrationForm();
+  }
+}
+
+// Initialize module
+initializeAuthModule();

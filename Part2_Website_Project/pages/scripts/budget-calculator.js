@@ -1,7 +1,19 @@
+/**
+ * Budget Calculator Module
+ * Handles event budget calculations including tickets, transportation, and accommodation
+ * 
+ * Responsibilities:
+ * - Load and display enrolled events
+ * - Calculate transportation costs based on governorate
+ * - Calculate total budget
+ * - Manage event removal
+ */
+
 (() => {
   "use strict";
 
   const API_URL = 'http://localhost:3000/api/events';
+  
   const DISTANCE_TO_CAPITAL_KM = {
     Cairo: 0,
     Giza: 20,
@@ -23,29 +35,75 @@
   };
 
   let enrolledEvents = [];
-  let allAvailableEvents = [];
 
-  function toInt(n, def = 0) {
-    const x = Number(n);
-    return Number.isFinite(x) ? Math.trunc(x) : def;
+  // ============================================================================
+  // Utility Functions Module (Single Responsibility: helper functions)
+  // ============================================================================
+
+  /**
+   * Converts value to integer with default fallback
+   * @param {number|string} value - Value to convert
+   * @param {number} defaultValue - Default value if conversion fails
+   * @returns {number} Integer value
+   */
+  function toInteger(value, defaultValue = 0) {
+    const num = Number(value);
+    return Number.isFinite(num) ? Math.trunc(num) : defaultValue;
   }
 
-  function money2(n) {
-    return `$${Number(n).toFixed(2)}`;
+  /**
+   * Formats number as currency with 2 decimal places
+   * @param {number} amount - Amount to format
+   * @returns {string} Formatted currency string
+   */
+  function formatCurrency(amount) {
+    return `$${Number(amount).toFixed(2)}`;
   }
 
-  function moneyIntSuffix(n) {
-    return `${Math.round(Number(n))}$`;
+  /**
+   * Formats number as currency with integer suffix
+   * @param {number} amount - Amount to format
+   * @returns {string} Formatted currency string with $ suffix
+   */
+  function formatCurrencyInteger(amount) {
+    return `${Math.round(Number(amount))}$`;
   }
 
-  // price = 5 + 0.01 * distance
-  function transportPrice(fromGov) {
-    const key = String(fromGov || "").trim();
-    const km = DISTANCE_TO_CAPITAL_KM[key] ?? 0;
-    return Math.round(5 + 0.01 * km); // integer
+  /**
+   * Escapes HTML to prevent XSS attacks
+   * @param {string} text - Text to escape
+   * @returns {string} Escaped HTML string
+   */
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
   }
 
-  // Get current user ID for per-user calculator storage
+  // ============================================================================
+  // Transportation Calculation Module (Single Responsibility: transport costs)
+  // ============================================================================
+
+  /**
+   * Calculates transportation price based on governorate
+   * Formula: price = 5 + 0.01 * distance
+   * @param {string} governorate - Governorate name
+   * @returns {number} Transportation price (rounded integer)
+   */
+  function calculateTransportPrice(governorate) {
+    const normalizedGovernorate = String(governorate || "").trim();
+    const distanceKm = DISTANCE_TO_CAPITAL_KM[normalizedGovernorate] ?? 0;
+    return Math.round(5 + 0.01 * distanceKm);
+  }
+
+  // ============================================================================
+  // User Storage Module (Single Responsibility: localStorage operations)
+  // ============================================================================
+
+  /**
+   * Gets current user ID from localStorage
+   * @returns {string|null} User ID or null
+   */
   function getCurrentUserId() {
     try {
       const userStr = localStorage.getItem('currentUser');
@@ -53,36 +111,75 @@
         const user = JSON.parse(userStr);
         return user.id || user._id || null;
       }
-    } catch (e) {
+    } catch (error) {
       return null;
     }
     return null;
   }
 
-  // Get storage key for calculator events (per user)
+  /**
+   * Gets storage key for calculator events (per user)
+   * @returns {string} Storage key
+   */
   function getCalculatorStorageKey() {
     const userId = getCurrentUserId();
     return userId ? `calculatorEvents_${userId}` : 'calculatorEvents';
   }
 
-  // Load enrolled events from localStorage (per user)
+  /**
+   * Clears old calculator data if user changed
+   */
+  function clearOldCalculatorData() {
+    const currentUserId = getCurrentUserId();
+    if (currentUserId) {
+      const oldEvents = localStorage.getItem('calculatorEvents');
+      if (oldEvents) {
+        localStorage.removeItem('calculatorEvents');
+      }
+    }
+  }
+
+  // ============================================================================
+  // Event Management Module (Single Responsibility: event operations)
+  // ============================================================================
+
+  /**
+   * Loads enrolled events from localStorage (per user)
+   */
   function loadEnrolledEvents() {
     const storageKey = getCalculatorStorageKey();
     const storedEvents = localStorage.getItem(storageKey);
+    
     if (storedEvents) {
       try {
         enrolledEvents = JSON.parse(storedEvents);
-      } catch (e) {
+      } catch (error) {
         enrolledEvents = [];
       }
     } else {
       enrolledEvents = [];
     }
+    
     renderEnrolledEvents();
     updateTicketsTotal();
   }
 
-  // Render enrolled events list
+  /**
+   * Removes event from enrolled events list
+   * @param {number} index - Index of event to remove
+   */
+  function removeEvent(index) {
+    enrolledEvents.splice(index, 1);
+    const storageKey = getCalculatorStorageKey();
+    localStorage.setItem(storageKey, JSON.stringify(enrolledEvents));
+    renderEnrolledEvents();
+    updateTicketsTotal();
+    updateTotal();
+  }
+
+  /**
+   * Renders enrolled events list in the DOM
+   */
   function renderEnrolledEvents() {
     const eventsList = document.querySelector("#enrolledEventsList");
     if (!eventsList) return;
@@ -101,7 +198,7 @@
       const eventInfo = document.createElement('div');
       eventInfo.innerHTML = `
         <strong>${escapeHtml(event.title)}</strong><br>
-        <small style="color: #666;">Price: ${money2(event.price)}</small>
+        <small style="color: #666;">Price: ${formatCurrency(event.price)}</small>
       `;
       
       const removeBtn = document.createElement('button');
@@ -117,63 +214,143 @@
     });
   }
 
-  // Remove event from list
-  function removeEvent(index) {
-    enrolledEvents.splice(index, 1);
-    const storageKey = getCalculatorStorageKey();
-    localStorage.setItem(storageKey, JSON.stringify(enrolledEvents));
-    renderEnrolledEvents();
-    updateTicketsTotal();
-    updateTotal();
-  }
+  // ============================================================================
+  // Calculation Module (Single Responsibility: budget calculations)
+  // ============================================================================
 
-  // Update tickets total (sum of all enrolled events)
+  /**
+   * Updates tickets total (sum of all enrolled events)
+   */
   function updateTicketsTotal() {
     const ticketsTotalField = document.querySelector("#ticketsTotalField");
     if (!ticketsTotalField) return;
 
     const total = enrolledEvents.reduce((sum, event) => sum + (event.price || 0), 0);
-    ticketsTotalField.value = `Total: ${money2(total)}`;
+    ticketsTotalField.value = `Total: ${formatCurrency(total)}`;
   }
 
-  // Fetch all available events for "Add More Events"
-  async function fetchAllEvents() {
-    try {
-      const response = await fetch(API_URL);
-      const result = await response.json();
-      if (result.success && result.data) {
-        allAvailableEvents = result.data;
-        showAddEventsModal();
-      }
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      // If API fails, just redirect to events page
-      window.location.href = 'events.html';
+  /**
+   * Updates total budget calculation
+   * @param {HTMLElement} foodCostInput - Food cost input element
+   * @param {HTMLElement} useTransportYes - Transport yes radio button
+   * @param {HTMLElement} fromGovernorateSelect - Governorate select element
+   */
+  function updateTotal(foodCostInput, useTransportYes, fromGovernorateSelect) {
+    const ticketsTotal = enrolledEvents.reduce((sum, event) => sum + (event.price || 0), 0);
+    const accommodation = Math.max(0, Number(foodCostInput?.value || 0));
+    const useTransport = !!useTransportYes?.checked;
+    const transportCost = useTransport ? calculateTransportPrice(fromGovernorateSelect?.value) : 0;
+    const total = ticketsTotal + accommodation + transportCost;
+
+    const grandTotalField = document.querySelector("#grandTotalField");
+    const grandTotalSpan = document.querySelector("#grandTotal");
+    
+    if (grandTotalField) {
+      grandTotalField.value = formatCurrency(total);
+    }
+    if (grandTotalSpan) {
+      grandTotalSpan.textContent = formatCurrency(total);
     }
   }
 
-  // Show modal to add more events
-  function showAddEventsModal() {
-    // Simple approach: redirect to events page
-    // User can enroll there and will be redirected back
+  /**
+   * Updates inline calculations (transport, accommodation, totals)
+   * @param {HTMLElement} foodCostInput - Food cost input element
+   * @param {HTMLElement} useTransportYes - Transport yes radio button
+   * @param {HTMLElement} useTransportNo - Transport no radio button
+   * @param {HTMLElement} fromGovernorateSelect - Governorate select element
+   * @param {HTMLElement} transportCostInput - Transport cost input element
+   * @param {HTMLElement} accommodationTotalSpan - Accommodation total span element
+   */
+  function updateInline(
+    foodCostInput,
+    useTransportYes,
+    useTransportNo,
+    fromGovernorateSelect,
+    transportCostInput,
+    accommodationTotalSpan
+  ) {
+    updateTicketsTotal();
+
+    const accommodation = Math.max(0, Number(foodCostInput?.value || 0));
+    if (accommodationTotalSpan) {
+      accommodationTotalSpan.textContent = formatCurrency(accommodation);
+    }
+
+    const useTransport = !!useTransportYes?.checked;
+    if (fromGovernorateSelect) {
+      fromGovernorateSelect.disabled = !useTransport;
+    }
+
+    const transportCost = useTransport ? calculateTransportPrice(fromGovernorateSelect?.value) : 0;
+    if (transportCostInput) {
+      transportCostInput.value = formatCurrencyInteger(transportCost);
+    }
+    
+    updateTotal(foodCostInput, useTransportYes, fromGovernorateSelect);
+  }
+
+  // ============================================================================
+  // Navigation Module (Single Responsibility: page navigation)
+  // ============================================================================
+
+  /**
+   * Redirects to events page to add more events
+   */
+  function redirectToAddMoreEvents() {
     window.location.href = 'events.html';
   }
 
-  // Escape HTML
-  function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+  // ============================================================================
+  // Form Handling Module (Single Responsibility: form operations)
+  // ============================================================================
+
+  /**
+   * Handles form submission
+   * @param {Event} event - Form submit event
+   * @param {HTMLElement} resultsBox - Results box element
+   * @param {HTMLElement} foodCostInput - Food cost input element
+   * @param {HTMLElement} useTransportYes - Transport yes radio button
+   * @param {HTMLElement} fromGovernorateSelect - Governorate select element
+   */
+  function handleFormSubmit(event, resultsBox, foodCostInput, useTransportYes, fromGovernorateSelect) {
+    event.preventDefault();
+    updateTotal(foodCostInput, useTransportYes, fromGovernorateSelect);
+    if (resultsBox) {
+      resultsBox.hidden = false;
+    }
   }
+
+  /**
+   * Handles form reset
+   * @param {HTMLElement} resultsBox - Results box element
+   * @param {HTMLElement} grandTotalField - Grand total field element
+   * @param {Function} updateInlineCallback - Callback to update inline calculations
+   */
+  function handleFormReset(resultsBox, grandTotalField, updateInlineCallback) {
+    setTimeout(() => {
+      if (resultsBox) {
+        resultsBox.hidden = true;
+      }
+      if (grandTotalField) {
+        grandTotalField.value = "$0.00";
+      }
+      updateInlineCallback();
+    }, 0);
+  }
+
+  // ============================================================================
+  // Module Initialization
+  // ============================================================================
 
   window.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("#budgetForm");
     if (!form) return;
 
     const ticketsTotalField = document.querySelector("#ticketsTotalField");
-    const useYes = document.querySelector("#useTransportYes");
-    const useNo = document.querySelector("#useTransportNo");
-    const fromGov = document.querySelector("#fromGovernorate");
+    const useTransportYes = document.querySelector("#useTransportYes");
+    const useTransportNo = document.querySelector("#useTransportNo");
+    const fromGovernorate = document.querySelector("#fromGovernorate");
     const transportCost = document.querySelector("#transportCost");
     const foodCost = document.querySelector("#foodCost");
     const accommodationTotal = document.querySelector("#accommodationTotal");
@@ -182,81 +359,52 @@
     const resultsBox = document.querySelector("#budgetResults");
     const addMoreEventsBtn = document.querySelector("#addMoreEventsBtn");
 
-    // Clear old calculator data if user changed (check for old format)
-    const currentUserId = getCurrentUserId();
-    if (currentUserId) {
-      // If old format exists and user is logged in, clear it
-      const oldEvents = localStorage.getItem('calculatorEvents');
-      if (oldEvents) {
-        try {
-          const oldEventsData = JSON.parse(oldEvents);
-          // If old data exists and doesn't match current user, clear it
-          localStorage.removeItem('calculatorEvents');
-        } catch (e) {
-          localStorage.removeItem('calculatorEvents');
-        }
-      }
-    }
+    // Clear old calculator data if user changed
+    clearOldCalculatorData();
 
     // Load enrolled events on page load (per user)
     loadEnrolledEvents();
 
     // Add more events button
     if (addMoreEventsBtn) {
-      addMoreEventsBtn.addEventListener('click', fetchAllEvents);
+      addMoreEventsBtn.addEventListener('click', redirectToAddMoreEvents);
     }
 
-    function updateInline() {
-      updateTicketsTotal();
+    // Create update inline callback with current elements
+    const updateInlineCallback = () => {
+      updateInline(
+        foodCost,
+        useTransportYes,
+        useTransportNo,
+        fromGovernorate,
+        transportCost,
+        accommodationTotal
+      );
+    };
 
-      const accom = Math.max(0, Number(foodCost?.value || 0));
-      if (accommodationTotal) accommodationTotal.textContent = money2(accom);
+    // Event listeners for real-time updates
+    foodCost?.addEventListener("change", updateInlineCallback);
+    useTransportYes?.addEventListener("change", updateInlineCallback);
+    useTransportNo?.addEventListener("change", updateInlineCallback);
+    fromGovernorate?.addEventListener("change", updateInlineCallback);
 
-      const useTransport = !!useYes?.checked;
-      if (fromGov) fromGov.disabled = !useTransport;
-
-      let tCost = 0;
-      if (useTransport) tCost = transportPrice(fromGov?.value);
-
-      // show like: 20$
-      if (transportCost) transportCost.value = moneyIntSuffix(tCost);
-      
-      updateTotal();
-    }
-
-    function updateTotal() {
-      const ticketsTotal = enrolledEvents.reduce((sum, event) => sum + (event.price || 0), 0);
-      const accom = Math.max(0, Number(foodCost?.value || 0));
-      const useTransport = !!useYes?.checked;
-      const tCost = useTransport ? transportPrice(fromGov?.value) : 0;
-      const total = ticketsTotal + accom + tCost;
-
-      if (grandTotalField) grandTotalField.value = money2(total);
-      if (grandTotalSpan) grandTotalSpan.textContent = money2(total);
-    }
-
-    function calculateTotal(e) {
-      e.preventDefault();
-      updateTotal();
-      if (resultsBox) resultsBox.hidden = false;
-    }
-
-    // events
-    foodCost?.addEventListener("change", updateInline);
-    useYes?.addEventListener("change", updateInline);
-    useNo?.addEventListener("change", updateInline);
-    fromGov?.addEventListener("change", updateInline);
-
-    form.addEventListener("submit", calculateTotal);
-    form.addEventListener("reset", () => {
-      setTimeout(() => {
-        if (resultsBox) resultsBox.hidden = true;
-        if (grandTotalField) grandTotalField.value = "$0.00";
-        updateInline();
-      }, 0);
+    // Form submission
+    form.addEventListener("submit", (event) => {
+      handleFormSubmit(
+        event,
+        resultsBox,
+        foodCost,
+        useTransportYes,
+        fromGovernorate
+      );
     });
 
-    // initial
-    updateInline();
+    // Form reset
+    form.addEventListener("reset", () => {
+      handleFormReset(resultsBox, grandTotalField, updateInlineCallback);
+    });
+
+    // Initial calculation
+    updateInlineCallback();
   });
 })();
