@@ -1,12 +1,23 @@
 /**
- * Common Utilities Module
- * Shared JavaScript utilities used across all pages
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/scripts/common.js
+ * Description: Common Utilities Module - Shared JavaScript utilities used across all pages
  * 
  * Responsibilities:
  * - UI initialization (copyright, navigation, smooth scroll)
  * - Profile dropdown management
  * - Authentication helpers
  * - Link security
+ * - Navigation state management
  */
 
 // ============================================================================

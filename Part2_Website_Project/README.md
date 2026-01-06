@@ -1,7 +1,7 @@
 # EventsX - Dynamic Responsive Event Planner Web Application
 
 **CSE211 Web Programming - Fall 2025-2026**  
-**Final Course Project - Group 00**
+**Final Course Project - Group 01**
 
 ## Project Overview
 
@@ -133,7 +133,7 @@ Part2_Website_Project/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd CSE211_FinalProject_Group00/Part2_Website_Project
+   cd CSE211_FinalProject_Group01/Part2_Website_Project
    ```
 
 2. **Install dependencies**
@@ -370,11 +370,11 @@ JavaScript code follows ES6+ standards and is validated using ESLint.
 
 ## Team Members
 
-**Group 00**
-- [Team Member 1 Name] - [ID]
-- [Team Member 2 Name] - [ID]
-- [Team Member 3 Name] - [ID]
-- [Team Member 4 Name] - [ID]
+**Group 01**
+Ibrahim Hassen       223104567 
+George fayz          223106365 
+Youssef Ahmed        223101109 
+Abdallah Mahdy       223104683 
 
 ### Responsibilities
 - All team members contributed to coding, report integration, quality check, and code submission.

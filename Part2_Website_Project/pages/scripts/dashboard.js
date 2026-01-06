@@ -1,11 +1,22 @@
 /**
- * Student Dashboard Module
- * Handles dynamic content for student dashboard page
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/scripts/dashboard.js
+ * Description: Student Dashboard Module - Handles dynamic content for student dashboard page
  * 
  * Responsibilities:
  * - Load and display user enrollments
  * - Display statistics
  * - Load and display recommended events
+ * - Calculate enrollment statistics
  */
 
 const API_BASE_URL = 'http://localhost:3000/api';

@@ -1,7 +1,7 @@
 # EventsX - Dynamic Responsive Event Planner Web Application
 
 **CSE211 Web Programming - Fall 2025-2026**  
-**Final Course Project - Group 00**
+**Final Course Project - Group 01**
 
 ## Project Overview
 
@@ -133,7 +133,7 @@ Part2_Website_Project/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd CSE211_FinalProject_Group00/Part2_Website_Project
+   cd CSE211_FinalProject_Group01/Part2_Website_Project
    ```
 
 2. **Install dependencies**

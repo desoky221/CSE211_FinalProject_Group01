@@ -1,3 +1,19 @@
+/**
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/backend/controllers/authController.js
+ * Description: Authentication Controller - Handles user registration, login, and profile management
+ * Features: Password hashing, JWT token generation, user validation, secure authentication
+ */
+
 import User from '../database/user/userModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';

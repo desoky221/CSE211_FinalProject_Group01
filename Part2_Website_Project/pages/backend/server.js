@@ -1,3 +1,19 @@
+/**
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/backend/server.js
+ * Description: Express.js server - Main backend server for EventsX application
+ * Features: RESTful API, MongoDB connection, CORS configuration, authentication middleware
+ */
+
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';

@@ -1,8 +1,17 @@
 /*
-ID & Name:    [Refactored by EventX Assistant]
-Description:  Registration page specific styles.
-              Modern sign-up form design with floating card effect.
-              Updated to use Global Design System Variables.
+  CSE211 Web Programming - Fall 2025-2026
+  Final Course Project - Group 01
+  EventsX - Dynamic Responsive Event Planner Web Application
+  
+  Team Members:
+  - Ibrahim Hassan - 223104567
+  - George Karm Hosney Fayz - 223106365
+  - Youssef Ahmed Ibrahim - 223101109
+  - Abdallah Mostafa Mahdy - 223104683
+  
+  File: pages/css/registration.css
+  Description: Registration and login page specific styles
+  Features: Modern sign-up form design with floating card effect, form styling, validation styles
 */
 
 /* Main content container */

@@ -1,5 +1,16 @@
 /**
- * Budget Calculator Module
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/scripts/budget-calculator.js
+ * Description: Budget Calculator Module
  * Handles event budget calculations including tickets, transportation, and accommodation
  * 
  * Responsibilities:
@@ -7,6 +18,7 @@
  * - Calculate transportation costs based on governorate
  * - Calculate total budget
  * - Manage event removal
+ * - Accommodation cost calculation
  */
 
 (() => {

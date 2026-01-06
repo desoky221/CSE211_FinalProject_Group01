@@ -1,3 +1,19 @@
+/**
+ * CSE211 Web Programming - Fall 2025-2026
+ * Final Course Project - Group 01
+ * EventsX - Dynamic Responsive Event Planner Web Application
+ * 
+ * Team Members:
+ * - Ibrahim Hassan - 223104567
+ * - George Karm Hosney Fayz - 223106365
+ * - Youssef Ahmed Ibrahim - 223101109
+ * - Abdallah Mostafa Mahdy - 223104683
+ * 
+ * File: pages/backend/controllers/eventController.js
+ * Description: Event Controller - Handles all event-related operations
+ * Features: CRUD operations for events, event filtering, random event selection
+ */
+
 import Event from '../database/events/eventModel.js';
 
 // Get all events

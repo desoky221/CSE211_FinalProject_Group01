@@ -1,0 +1,213 @@
+# CSE211 Web Programming - Fall 2025-2026
+# Final Course Project - Group 01
+# EventsX - Dynamic Responsive Event Planner Web Application
+# Requirements and Dependencies
+
+# ============================================================================
+# SYSTEM REQUIREMENTS
+# ============================================================================
+
+# Node.js Runtime
+# Version: v14.0.0 or higher (recommended: v18.0.0 or higher)
+# Download from: https://nodejs.org/
+
+# MongoDB Database
+# Version: Latest stable version
+# Download from: https://www.mongodb.com/try/download/community
+# OR use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas
+
+# Web Browser (for testing)
+# - Microsoft Edge (current version)
+# - Firefox (current version)
+# - Google Chrome (current version)
+# - Opera (current version)
+# - Safari (Mac and Windows)
+# - Mobile browsers (iOS Safari, Chrome Mobile)
+
+# ============================================================================
+# NODE.JS DEPENDENCIES
+# ============================================================================
+# Install using: npm install
+# Or install individually: npm install <package-name>
+
+# Web Framework
+express==5.2.1
+
+# Database ODM (Object Data Modeling)
+mongoose==9.1.1
+
+# Authentication & Security
+bcryptjs==2.4.3
+jsonwebtoken==9.0.2
+cookie-parser==1.4.6
+
+# Development Tools
+nodemon==3.1.11
+
+# ============================================================================
+# INSTALLATION INSTRUCTIONS
+# ============================================================================
+
+# 1. Install Node.js from https://nodejs.org/
+# 2. Install MongoDB locally or set up MongoDB Atlas account
+# 3. Navigate to Part2_Website_Project directory
+# 4. Run: npm install
+#    This will install all dependencies listed in package.json
+
+# ============================================================================
+# ENVIRONMENT VARIABLES REQUIRED
+# ============================================================================
+
+# Create a .env file in Part2_Website_Project/pages/backend/ with:
+# MONGODB_URI=mongodb://localhost:27017/eventsx
+# JWT_SECRET=your-secret-key-change-in-production
+# PORT=3000
+
+# ============================================================================
+# ADDITIONAL TOOLS (Optional but Recommended)
+# ============================================================================
+
+# Code Editor
+# - Visual Studio Code: https://code.visualstudio.com/
+# - Or any text editor with HTML/CSS/JavaScript support
+
+# Git (for version control)
+# Download from: https://git-scm.com/
+
+# Postman or similar (for API testing)
+# Download from: https://www.postman.com/
+
+# ============================================================================
+# NOTES
+# ============================================================================
+
+# - All Node.js dependencies are managed via package.json
+# - Run 'npm install' in Part2_Website_Project/ to install dependencies
+# - MongoDB must be running before starting the backend server
+# - For production deployment, update MONGODB_URI to your production database
+# - The backend server runs on port 3000 by default (configurable via .env)
+# - Frontend files are static HTML/CSS/JavaScript files served directly
+# - API endpoints are available at http://localhost:3000/api
+# - JWT tokens are stored in HTTP-only cookies for security
+# - Password hashing uses bcryptjs with salt rounds
+# - CORS is configured to allow frontend-backend communication
+# - All team members contributed equally to coding, testing, and documentation
+
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+
+# Common Issues and Solutions:
+# 1. "Cannot find module" error:
+#    - Run 'npm install' in Part2_Website_Project/ directory
+#    - Ensure Node.js is properly installed (check with 'node --version')
+#
+# 2. MongoDB connection error:
+#    - Verify MongoDB is running (check with 'mongod' or MongoDB Compass)
+#    - Check MONGODB_URI in .env file is correct
+#    - For MongoDB Atlas, ensure IP whitelist includes your IP address
+#
+# 3. Port already in use:
+#    - Change PORT in .env file to a different port (e.g., 3001)
+#    - Or stop the process using port 3000
+#
+# 4. JWT authentication errors:
+#    - Verify JWT_SECRET is set in .env file
+#    - Clear browser cookies and try logging in again
+#    - Check token expiration time in auth middleware
+#
+# 5. CORS errors:
+#    - Ensure backend server is running
+#    - Check CORS configuration in server.js
+#    - Verify API URL in frontend JavaScript files matches backend URL
+
+# ============================================================================
+# PROJECT STRUCTURE NOTES
+# ============================================================================
+
+# - index.html is the main entry point (home page)
+# - All other HTML pages are in pages/ directory
+# - CSS files are organized by page in pages/css/
+# - JavaScript files are in pages/scripts/
+# - Backend server code is in pages/backend/
+# - Images and videos are in pages/images/ and pages/videos/
+# - All file paths in code use relative paths
+# - Group number (01) appears at the top of each code file
+
+# ============================================================================
+# VALIDATION REQUIREMENTS
+# ============================================================================
+
+# All code files must be validated:
+# - HTML5: Use W3C HTML Validator (https://validator.w3.org/)
+# - CSS3: Use W3C CSS Validator (https://jigsaw.w3.org/css-validator/)
+# - JavaScript: Use ESLint or similar linter
+# - PHP: Use PHP linter (if bonus part implemented)
+# - Validation screenshots must be saved in images/ folder
+# - Validation results documented in Part3_Documentation/Validation_Report.pdf
+
+# ============================================================================
+# DEPLOYMENT NOTES
+# ============================================================================
+
+# For web hosting deployment:
+# - Frontend: Upload HTML, CSS, JS files to web hosting service
+# - Backend: Deploy Node.js server to hosting service (Heroku, Railway, Render, etc.)
+# - Database: Use MongoDB Atlas (cloud) for production
+# - Update API URLs in frontend JavaScript files to point to deployed backend
+# - Configure CORS to allow frontend domain
+# - Set environment variables on hosting platform
+# - Recommended hosting services listed in README.md
+
+# ============================================================================
+# TEAM INFORMATION
+# ============================================================================
+
+# Group Number: 01
+# Course: CSE211 Web Programming
+# Semester: Fall 2025-2026
+# Project: EventsX - Dynamic Responsive Event Planner Web Application
+# Submission Date: Sunday, January 5, 2026
+
+# Team Members:
+# 1. Ibrahim Hassan - 223104567
+# 2. George Karm Hosney Fayz - 223106365
+# 3. Youssef Ahmed Ibrahim - 223101109
+# 4. Abdallah Mostafa Mahdy - 223104683
+
+# Team Responsibilities:
+# - All team members contributed equally to coding, report integration, 
+#   quality check, and code submission
+# - Each member was responsible for specific components of the project
+# - All members participated in testing, validation, and documentation
+
+# ============================================================================
+# AI ASSISTANCE ACKNOWLEDGMENT
+# ============================================================================
+
+# AI tools used in this project:
+# - ChatGPT: For code optimization, debugging, and learning
+# - GitHub Copilot: For code suggestions and autocompletion
+# - Claude: For documentation and code review
+#
+# All AI-assisted code and content is documented in:
+# - Part3_Documentation/AI_Tools_Usage_Documentation.pdf
+# - Project Report Appendix A: AI Assistance Acknowledgment
+#
+# AI assistance was used for learning purposes and code optimization only.
+# All work remains original and properly attributed.
+
+# ============================================================================
+# CONTACT INFORMATION
+# ============================================================================
+
+# For questions or issues regarding this project:
+# - Refer to the main README.md file in Part2_Website_Project/
+# - Check Part3_Documentation/README.txt for documentation details
+# - Contact course instructor or Lab TA for academic questions
+# - All project files follow naming convention: CSE211_FinalProject_Group01_*
+
+# ============================================================================
+# END OF REQUIREMENTS FILE
+# ============================================================================
+
