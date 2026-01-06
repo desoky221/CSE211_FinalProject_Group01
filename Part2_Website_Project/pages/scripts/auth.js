@@ -288,12 +288,41 @@ function redirectAfterAuth(userRole, delay = 1000) {
 // ============================================================================
 
 /**
- * Validates email format
+ * Validates email format using a basic regex pattern
  * @param {string} email - Email address to validate
  * @returns {boolean} True if email is valid
  */
 function isValidEmail(email) {
-  return email && email.includes('@') && email.includes('.');
+  if (!email) return false;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+}
+
+/**
+ * Validates password strength
+ * Requirements: at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
+ * @param {string} password - Password to validate
+ * @returns {string|null} Error message if invalid, null if valid
+ */
+function validatePasswordStrength(password) {
+  if (!password) {
+    return 'Password is required';
+  }
+
+  if (password.length < 8) {
+    return 'Password must be at least 8 characters long';
+  }
+
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar) {
+    return 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character';
+  }
+
+  return null;
 }
 
 /**
@@ -316,11 +345,9 @@ function validateRegistrationForm(formData, passwordInput, termsCheckbox) {
     return 'Password is required';
   }
   
-  if (typeof validatePasswordStrength === 'function') {
-    const passwordError = validatePasswordStrength(formData.password);
-    if (passwordError) {
-      return passwordError;
-    }
+  const passwordError = validatePasswordStrength(formData.password);
+  if (passwordError) {
+    return passwordError;
   }
   
   if (!formData.governorate || formData.governorate === '') {
